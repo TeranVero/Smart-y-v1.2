@@ -418,7 +418,7 @@ class usuarios_controller
 					</a>
 			  		<ul class="dropdown-menu dropdown-menu-lg-end shadow" aria-labelledby="dropdownUser2" style="">
 					  	<li><h6 class="dropdown-header">Configuración</h6></li>
-						<li><a class="dropdown-item admin-gestion-usuarios" href="/gestion/suarios">Usuarios</a></li>
+						<li><a class="dropdown-item admin-gestion-usuarios" href="/gestion/usuarios">Usuarios</a></li>
 						<li><a class="dropdown-item admin-gestion-dispositivos" href="/gestion/dispositivos">Dispositivos</a></li>
 						<li><a class="dropdown-item admin-upload" href="/gestion/upload">Carga masiva</a></li>
 						<li><hr class="dropdown-divider"></li>

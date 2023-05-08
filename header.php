@@ -102,7 +102,7 @@ include('init.php');
 						id="sub_menu">
 						<nav class="nav" aria-label="Secondary navigation">
 							<a class="nav-link  admin-gestion-usuarios text-warning-emphasis" aria-current="page"
-								href="/gestion/usuarios" >Usuarios</a>
+								href="/gestion/usuarios " >Usuarios</a>
 							<a class="nav-link admin-gestion-dispositivos text-warning-emphasis" href="/gestion/dispositivos">
 								Dispositivos
 							</a>
