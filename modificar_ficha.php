@@ -525,7 +525,7 @@ $intereses_disp = $dispositivo_controller->getDispInteres($disp["disp_id"]);
 
 	$(".confirmar").click(function () {
 		$.ajax({
-			url: 'procesarModificacionFicha.php?dispositivo=<?php echo $_GET['dispositivo']; ?>',
+			url: '../procesarModificacionFicha.php?dispositivo=<?php echo $_GET['dispositivo']; ?>',
 			method: "POST",
 			data: new FormData($("#form_mod_ficha")[0]),
 			processData: false,

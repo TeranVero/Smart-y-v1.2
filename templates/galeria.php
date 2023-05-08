@@ -28,5 +28,5 @@ $directorio = '../public_html/galerias/'; //Directorio raiz donde se almacenan l
 </div>
 
 <script type="module">
-  import { Fancybox } from "./node_modules/@fancyapps/ui/src/Fancybox/Fancybox.js";
+  import { Fancybox } from "../node_modules/@fancyapps/ui/src/Fancybox/Fancybox.js";
 </script>

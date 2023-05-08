@@ -518,7 +518,7 @@ $usuarios_controller = new usuarios_controller(); ?>
 	}
 
 	function modificar() {
-		location.href = "modificar_ficha?dispositivo=" + selected;
+		location.href = "../modificar_ficha/" + selected;
 	}
 
 	function agregar() {

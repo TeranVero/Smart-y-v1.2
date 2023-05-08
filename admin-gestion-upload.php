@@ -18,7 +18,7 @@ include_once('header.php'); ?>
 		<div id='button-box-upload' class="col-md-12 mb-4 pb-4 border-bottom border-2">
 			<h5>Carga del documento .csv:</h5>
 			<div class="col-md-12 mb-3 pb-3 ">
-				Descargar la <a href="public_html/download/plantilla.csv" download>plantilla</a> a rellenar para la
+				Descargar la <a href="../public_html/download/plantilla.csv" download>plantilla</a> a rellenar para la
 				carga masiva de dispositivos.
 			</div>
 			<form id='upload_csv' method='post' enctype='multipart/form-data' class="needs-validation" novalidate>

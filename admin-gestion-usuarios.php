@@ -219,7 +219,7 @@ $usuarios_controller = new usuarios_controller();
 	}
 
 	function modificar() {
-		location.href = "modificar_perfil?usuario=" + valoresCheck;
+		location.href = "../modificar_perfil/" + valoresCheck;
 		buscar_usuario();
 	}
 

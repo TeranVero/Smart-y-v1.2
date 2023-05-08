@@ -65,7 +65,7 @@ switch ($_POST["accion"]) {
 			<button  id='result-disp' class='col-12 p-0 disp rounded justify-content-center ' value=" . $row['disp_id'] . " id=" . $row['disp_id'] . ">
 			<div class='p-3 d-flex flex-column align-items-center'>";
 				if ($imagen != NULL) {
-					echo "<img class='p-3' src='public_html/galerias/" . $imagen['imagen'] . "' height='70' width='70'>";
+					echo "<img class='p-3' src='../public_html/galerias/" . $imagen['imagen'] . "' height='70' width='70'>";
 				}
 				echo '<p>' . $row["nombre"] . '</p>
 			<p>' . $row["ram"] . ' GB <img src="../assets/img/separador.png" height="10" width="10"> ' . $row["memoria_interna"] . ' GB</p>

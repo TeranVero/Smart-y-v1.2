@@ -8,6 +8,10 @@ RewriteRule ^recomendaciones/([^/]+)/?$ recomendaciones.php?usuario=$1
 RewriteRule ^contactos/([^/]+)/?$ contactos.php?usuario=$1 
 RewriteRule ^ficha_disp/([^/]+)/?$ ficha_disp.php?disp=$1 
 
+RewriteRule ^modificar_perfil/([^/]+)/?$ modificar_perfil.php?usuario=$1.php
+
+RewriteRule ^modificar_ficha/([^/]+)/?$ modificar_ficha.php?dispositivo=$1.php
+
 RewriteRule ^gestion/([^/]+)/?$ admin-gestion-$1.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -11,7 +11,7 @@ use Orhanerday\OpenAi\OpenAi;
 
 $text = $_GET['text'];//obtenemos la especificacion del dispositivos del que queremos obtener la información
   
-$open_ai_key = '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';
+$open_ai_key =getenv('OPENAI_API_KEY');
 $open_ai = new OpenAi($open_ai_key);
 
   $complete=$open_ai->completion([
