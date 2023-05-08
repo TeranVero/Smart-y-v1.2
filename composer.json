@@ -1,0 +1,6 @@
+{
+    "require": {
+        "chrome-php/chrome": "^1.6",
+        "orhanerday/open-ai": "^4.7"
+    }
+}
