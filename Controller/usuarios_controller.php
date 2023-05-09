@@ -431,9 +431,9 @@ class usuarios_controller
 					</a>
 			  		<ul class="dropdown-menu dropdown-menu-lg-end shadow" aria-labelledby="dropdownUser2" style="">
 					  	<li><h6 class="dropdown-header">Configuración</h6></li>
-						<li><a class="dropdown-item usuarios" href="/usuarios">Usuarios</a></li>
-						<li><a class="dropdown-item dispositivos" href="/dispositivos">Dispositivos</a></li>
-						<li><a class="dropdown-item upload" href="/upload">Carga masiva</a></li>
+						<li><a class="dropdown-item usuarios" href="/admin/usuarios">Usuarios</a></li>
+						<li><a class="dropdown-item dispositivos" href="/admin/dispositivos">Dispositivos</a></li>
+						<li><a class="dropdown-item upload" href="/admin/upload">Carga masiva</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><div class="d-flex"><a class="dropdown-item" href="../logout">Salir<img src="../assets/img/cerrar-sesion.png" alt="mdo" width="20" height="20" class="m-auto"></a></div></li>
 			  		</ul>

@@ -44,10 +44,14 @@
 
 	//Determina el tab actual del menu de navegacion para resaltar
 	var URLactual = window.location.pathname; 
-	URLactual = URLactual.split('/')
+	URLactual = URLactual.split('/');
+	console.log(URLactual);
 	if (URLactual[1] == "") {
 		$('.index').addClass('active');
-	} else {
+	} else if(URLactual[1]=='admin'){
+		$('.' + URLactual[2]).addClass('active');
+	}
+	else {
 		$('.' + URLactual[1]).addClass('active');
 	}
 

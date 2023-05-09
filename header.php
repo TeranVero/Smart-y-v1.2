@@ -101,12 +101,12 @@ include('init.php');
 					<div class="nav-scroller bg-body shadow-sm d-flex justify-content-center collapse mb-4 mb-lg-5"
 						id="sub_menu">
 						<nav class="nav" aria-label="Secondary navigation">
-							<a class="nav-link  admin-gestion-usuarios text-warning-emphasis" aria-current="page"
-								href="/gestion/usuarios " >Usuarios</a>
-							<a class="nav-link admin-gestion-dispositivos text-warning-emphasis" href="/gestion/dispositivos">
+							<a class="nav-link usuarios text-warning-emphasis" aria-current="page"
+								href="/admin/usuarios " >Usuarios</a>
+							<a class="nav-link dispositivos text-warning-emphasis" href="/admin/dispositivos">
 								Dispositivos
 							</a>
-							<a class="nav-link admin-upload text-warning-emphasis" href="/gestion/upload">Carga masiva</a>
+							<a class="nav-link upload text-warning-emphasis" href="/admin/upload">Carga masiva</a>
 						</nav>
 					</div>
 			<?php } ?>
