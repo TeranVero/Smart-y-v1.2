@@ -330,6 +330,22 @@ class usuarios_model extends configBD
 	}
 
 	/**
+	 * Obtener ocupacion
+	 * 
+	 * Devuelve la ocupacion del usuario de entrada 'usuario'
+	 * 
+	 * @param string $usuario nombre de usuario
+	 * @return bool|mysqli_result  ocupacion
+	 */
+    function getOcupacionUser($user_id){
+
+		$query = "SELECT ocupaciones.id_ocupacion, ocupaciones.descripcion from ocupaciones join usuarios WHERE ocupaciones.id_ocupacion=usuarios.ocupacion and usuarios.user_id='$user_id'";
+		$query = $this->BD->query($query) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
+
+		return $query->fetch_assoc();
+	}
+
+	/**
 	 * Obtener intereses
 	 * 
 	 * Devuelve el listado de interes disponibles para seleccionar

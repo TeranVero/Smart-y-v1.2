@@ -53,7 +53,7 @@ include_once('header.php');
 	});
 
 	$("#registro").click(function(){
-		location.href = "/registro.php";
+		location.href = "../registro.php";
 	});
 
 

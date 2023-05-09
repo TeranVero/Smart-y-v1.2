@@ -48,8 +48,6 @@ class usuarios_controller
 		$marcas = $_POST["marcas"];
 
 		$obj_user=new Usuario($name,$apellidos,$email,$fecha,$nombreUsuario,$pass,$ocupacion,$intereses,$marcas);
-
-		//$data = $this->usuarios_model->altaUsuario($name, $apellidos, $fecha, $nombreUsuario, $email, $pass, $ocupacion, $intereses, $marcas);
 		$data = $this->usuarios_model->altaUsuario($obj_user);
 
 		return $data;
@@ -240,6 +238,21 @@ class usuarios_controller
 		return $data;
 	}
 
+	/**
+	 * Obtener ocupacion del usuario de entrada
+	 * 
+	 * Llama al modelo para obtener la ocupacion del usuario 'user_id' de entrada
+	 * 
+	 * @param int $user_id identificador del usuario
+	 * @return bool|mysqli_result  array asociativo con la ocupacion del usuario
+	 */
+	function getOcupacionUser($user_id)
+	{
+
+		$data = $this->usuarios_model->getOcupacionUser($user_id);
+
+		return $data;
+	}
 
 	/**
 	 * Obtener avatar
@@ -418,9 +431,9 @@ class usuarios_controller
 					</a>
 			  		<ul class="dropdown-menu dropdown-menu-lg-end shadow" aria-labelledby="dropdownUser2" style="">
 					  	<li><h6 class="dropdown-header">Configuración</h6></li>
-						<li><a class="dropdown-item admin-gestion-usuarios" href="/gestion/usuarios">Usuarios</a></li>
-						<li><a class="dropdown-item admin-gestion-dispositivos" href="/gestion/dispositivos">Dispositivos</a></li>
-						<li><a class="dropdown-item admin-upload" href="/gestion/upload">Carga masiva</a></li>
+						<li><a class="dropdown-item usuarios" href="/usuarios">Usuarios</a></li>
+						<li><a class="dropdown-item dispositivos" href="/dispositivos">Dispositivos</a></li>
+						<li><a class="dropdown-item upload" href="/upload">Carga masiva</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><div class="d-flex"><a class="dropdown-item" href="../logout">Salir<img src="../assets/img/cerrar-sesion.png" alt="mdo" width="20" height="20" class="m-auto"></a></div></li>
 			  		</ul>

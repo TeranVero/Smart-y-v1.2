@@ -35,7 +35,7 @@ if ($usuarios_controller->existeUsuario($nombreUsuario)) {
 									<?php echo $usuario['apellidos'] ?>
 								</h5>
 								<div class=''>
-									<a href='modificar_perfil?usuario=<?php echo $_SESSION["nombreUsuario"] ?>'
+									<a href='../modificar_perfil?usuario=<?php echo $_SESSION["nombreUsuario"] ?>'
 										id='editar_perfil' class='mx-1  ' data-bs-toggle='tooltip'
 										data-bs-placement='bottom' title='Editar'><img src='../assets/img/editar.png'
 											height='20' width='20'></a>
@@ -71,7 +71,10 @@ if ($usuarios_controller->existeUsuario($nombreUsuario)) {
 										<p class="m-b-10 f-w-600">Ocupación</p>
 
 										<h6 class="text-muted f-w-400">
-											<?php echo $usuario['ocupacion'] ?>
+											<?php 
+											$ocupacion=$usuarios_controller->getOcupacionUser($usuario["user_id"]);
+											echo $ocupacion['descripcion'];
+											?>
 										</h6>
 									</div>
 									<div class="col-sm-4">

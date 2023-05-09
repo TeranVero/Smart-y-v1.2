@@ -76,7 +76,7 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 		</div>
 		<div class="row  mb-5 justify-content-center align-items-center">
 			<form class="row g-3 mb-5" id="form_mod"
-				action="procesarModificacion.php?usuario=<?php echo $_GET['usuario'] ?>" method="POST"
+				action="../Controller/procesarModificacion.php?usuario=<?php echo $_GET['usuario'] ?>" method="POST"
 				enctype="multipart/form-data">
 				<div class=" col-12">
 					<textarea class="d-none" name="file_json" id="file_json"></textarea>
@@ -119,7 +119,7 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 					<select class="form-select" aria-label="" name="ocupacion" id="ocupacion">
 						<?php $list_ocp = $usuarios_controller->getListadoOcupaciones();
 						while ($ocp = $list_ocp->fetch_assoc()) { ?>
-							<option value="<?php echo $ocp["descripcion"] ?>"><?php echo $ocp["descripcion"] ?></option>
+							<option value="<?php echo $ocp["id_ocupacion"] ?>"><?php echo $ocp["descripcion"] ?></option>
 						<?php } ?>
 					</select>
 				</div>
