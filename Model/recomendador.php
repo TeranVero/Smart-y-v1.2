@@ -151,7 +151,7 @@ class Recomendador
         $porcentaje_users = ($list_usuarios->num_rows * 0.75);
         if ($tipo_recomendacion === "fav") {
             while ($user_2 = $list_usuarios->fetch_assoc()) {
-                if ($this->es_cercano($user_id_1, $user_2["user_id"])) {
+                if ($this->es_cercano($user_id_1, $user_2["user_id"])) { 
                     /* Si el usuario 'user_2' es cercano, se recomienda el dispositivo 'fav' siempre y cuando
                     no este dentro del listado de favoritos ni de recomendaciones del usuario 'user_2'
                     */
@@ -169,25 +169,26 @@ class Recomendador
             $user_favs = $this->user_disp_model->getFav($user_id_1);
             while ($user_2 = $list_usuarios->fetch_assoc()) {
                 if ($this->es_cercano($user_id_1, $user_2["user_id"])) {
-                    /* Si el usuario 'user_2' es cercano al usuario 'user_id_1', se recomienda el dispositivo 'fav' siempre y cuando
+                    /**
+                     * En el caso de darse la recomendación por el alta del usuario user_id_1, este bucle
+                     * no se ejecuta al no tener ningun dispositivo como favorito.
+                     */
+                    while ($info_disp = $user_favs->fetch_assoc()) {
+                        /* Si el usuario 'user_2' es cercano al usuario 'user_id_1', se recomienda el dispositivo 'fav' siempre y cuando
                     no este dentro del listado de favoritos ni de recomendaciones del usuario 'user_2'
                     */
-                    while ($fav = $user_favs->fetch_assoc()) {
-                        if (!$this->user_disp_model->isFav($user_2["user_id"], $fav["disp_id"]) && !$this->user_disp_model->existeRecomendacion($user_2["user_id"], $fav["disp_id"])) {
-                            $info_disp = $this->dispositivo_model->getDispositivo($fav["disp_id"]);
+                        if (!$this->user_disp_model->isFav($user_2["user_id"], $info_disp["disp_id"]) && !$this->user_disp_model->existeRecomendacion($user_2["user_id"], $info_disp["disp_id"])) {
                             if ($info_disp['dislikes'] <= $porcentaje_users) {
-
-                                $this->user_disp_model->addRecomendacion($user_2["user_id"], $fav["disp_id"]);
+                                $this->user_disp_model->addRecomendacion($user_2["user_id"], $info_disp["disp_id"]);
                             }
                         }
                     }
                     $cercano_favs = $this->user_disp_model->getFav($user_2['user_id']);
-                    while ($fav_cercano = $cercano_favs->fetch_assoc()) {
-                        if (!$this->user_disp_model->isFav($user_id_1, $fav_cercano["disp_id"]) && !$this->user_disp_model->existeRecomendacion($user_id_1, $fav_cercano["disp_id"])) {
-                            $info_disp = $this->dispositivo_model->getDispositivo($fav_cercano["disp_id"]);
+                    while ($info_disp_cercano = $cercano_favs->fetch_assoc()) {
+                        if (!$this->user_disp_model->isFav($user_id_1, $info_disp_cercano["disp_id"]) && !$this->user_disp_model->existeRecomendacion($user_id_1, $info_disp_cercano["disp_id"])) {
                             if ($info_disp['dislikes'] <= $porcentaje_users) {
 
-                                $this->user_disp_model->addRecomendacion($user_id_1, $fav_cercano["disp_id"]);
+                                $this->user_disp_model->addRecomendacion($user_id_1, $info_disp_cercano["disp_id"]);
                             }
                         }
                     }

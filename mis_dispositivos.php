@@ -34,7 +34,6 @@ $disp_array = $user_disp_controller->getDispAll($user['user_id']);
 </style>
 
 
-
 <div class="container px-4  px-sm-0 mt-md-5 mt-4">
     <div class="row resultados ">
         <div class="col-md-3 mb-4 mb-sm-0">
@@ -51,8 +50,7 @@ $disp_array = $user_disp_controller->getDispAll($user['user_id']);
         </div>
         <div class="col-md-9">
             <div id='disp' class='resultado_disp  row '>
-                <?php while ($d = $disp_array->fetch_assoc()) {
-                    $disp = $dispositivo_controller->getDisp($d['disp_id']);
+                <?php while ($disp = $disp_array->fetch_assoc()) {
                     $imagen = $dispositivo_controller->getDestacada($disp["disp_id"]);
                     include('templates/search.php');
                 } ?>

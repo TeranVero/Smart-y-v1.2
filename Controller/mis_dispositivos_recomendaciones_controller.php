@@ -23,10 +23,8 @@ if (isset($_POST["accion"])) {
      */
     case 'mostrar_favs':
       $disp_array = $user_disp_controller->getFav($_POST['user']);
-
-      while ($d = $disp_array->fetch_assoc()) {
-        $disp = $dispositivo_controller->getDisp($d['disp_id']);
-        $imagen = $dispositivo_controller->getDestacada($d["disp_id"]);
+      while ($disp = $disp_array->fetch_assoc()) {
+        $imagen = $dispositivo_controller->getDestacada($disp["disp_id"]);
         include('../templates/search.php');
       }
       break;
@@ -36,10 +34,8 @@ if (isset($_POST["accion"])) {
      */
     case 'mostrar_usados':
       $disp_array = $user_disp_controller->getUsed($_POST['user']);
-
-      while ($d = $disp_array->fetch_assoc()) {
-        $disp = $dispositivo_controller->getDisp($d['disp_id']);
-        $imagen = $dispositivo_controller->getDestacada($d["disp_id"]);
+      while ($disp = $disp_array->fetch_assoc()) {
+        $imagen = $dispositivo_controller->getDestacada($disp["disp_id"]);
         include('../templates/search.php');
       }
       break;

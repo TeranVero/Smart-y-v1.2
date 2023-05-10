@@ -92,7 +92,7 @@ class user_disp_model extends configBD
         public function getFav($user)
         {
 
-                $query = "SELECT disp_id FROM user_disp_fav WHERE user_id='$user'";
+                $query = "SELECT * FROM user_disp_fav join dispositivos WHERE user_disp_fav.disp_id=dispositivos.disp_id and user_disp_fav.user_id='$user'";
                 $favoritos = $this->BD->query($query) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
                 return $favoritos;
         }
@@ -246,7 +246,7 @@ class user_disp_model extends configBD
          */
         public function getUsed($user)
         {
-                $query = "SELECT disp_id FROM user_disp_use WHERE user_id='$user'";
+                $query = "SELECT * FROM user_disp_use join dispositivos WHERE user_disp_use.disp_id=dispositivos.disp_id and user_disp_use.user_id='$user'";
                 $used = $this->BD->query($query) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
                 return $used;
         }
@@ -259,7 +259,7 @@ class user_disp_model extends configBD
          */
         public function getDispAll($user)
         {
-                $query = "SELECT disp_id FROM user_disp_use WHERE user_id='$user' UNION SELECT disp_id FROM user_disp_fav WHERE user_id='$user' UNION SELECT disp_id FROM user_disp_dislike WHERE user_id='$user'";
+                $query = "SELECT * FROM user_disp_use  join dispositivos WHERE user_disp_use.user_id='$user' and user_disp_use.disp_id=dispositivos.disp_id UNION SELECT * FROM user_disp_fav join dispositivos WHERE user_disp_fav.user_id='$user' and user_disp_fav.disp_id = dispositivos.disp_id";
                 $all = $this->BD->query($query) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
                 return $all;
         }
