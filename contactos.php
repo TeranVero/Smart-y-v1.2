@@ -120,39 +120,6 @@ $user_contactos = $usuarios_controller->obtenerContactos($user["user_id"]);
 
         });
     });
-
-    function buscar_usuario() {
-        var nombre = $("#buscar_usuario").val();
-        $.ajax({
-            type: "POST",
-            url: "../Controller/admin_controller.php",
-            cache: false,
-            data: {
-                nombre: nombre,
-                accion: "buscar_usuario"
-            }
-        }).done(function (data, text, jqr) {
-            $(".result_modal").html(data);
-        });
-
-    }
-
-    function buscar_contacto(){
-        var nombre = $("#buscar_contacto").val();
-        $.ajax({
-            type: "POST",
-            url: "../Controller/contactos_controller.php",
-            cache: false,
-            data: {
-                nombre: nombre,
-                user_id: <?php echo $user["user_id"]; ?>,
-                accion: "buscar_contactos"
-            }
-        }).done(function (data, text, jqr) {
-            $("#result").html(data);
-        });
-    }
-
     function agregar_contacto() {
         $.ajax({
             type: "POST",
@@ -177,6 +144,40 @@ $user_contactos = $usuarios_controller->obtenerContactos($user["user_id"]);
             }
         });
     }
+    //Funcion utilizada dentro del modal para agregar un nuevo contacto, dado que la busqueda la realiza sobre los usuarios en general
+    function buscar_usuario() {
+        var nombre = $("#buscar_usuario").val();
+        $.ajax({
+            type: "POST",
+            url: "../Controller/admin_controller.php",
+            cache: false,
+            data: {
+                nombre: nombre,
+                accion: "buscar_usuario"
+            }
+        }).done(function (data, text, jqr) {
+            $(".result_modal").html(data);
+        });
+
+    }
+//Funcion utilizada para la busqueda exclusiva entre  los contactos del usuario
+    function buscar_contacto(){
+        var nombre = $("#buscar_contacto").val();
+        $.ajax({
+            type: "POST",
+            url: "../Controller/contactos_controller.php",
+            cache: false,
+            data: {
+                nombre: nombre,
+                user_id: <?php echo $user["user_id"]; ?>,
+                accion: "buscar_contactos"
+            }
+        }).done(function (data, text, jqr) {
+            $("#result").html(data);
+        });
+    }
+
+ 
 
     $(".eliminar-contacto").click(function () {
         $contacto_id = this.id;

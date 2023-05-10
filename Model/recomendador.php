@@ -227,7 +227,7 @@ class Recomendador
 
                 array_push($array1, $u["interes_id"]);
             }
-            if (count(array_intersect($array1, $array2)) >= 1) {
+            if (count(array_intersect($array1, $array2)) >= 2) {
 
                 $this->user_disp_model->addRecomendacion($usuario["user_id"], $disp);
 

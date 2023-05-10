@@ -1,0 +1,1261 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost
+-- Tiempo de generación: 10-05-2023 a las 18:04:49
+-- Versión del servidor: 8.0.33-0ubuntu0.22.04.1
+-- Versión de PHP: 8.1.18
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `Smarty`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `caracteristicas_camara`
+--
+
+CREATE TABLE `caracteristicas_camara` (
+  `id` int NOT NULL,
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `caracteristicas_camara`
+--
+
+INSERT INTO `caracteristicas_camara` (`id`, `nombre`) VALUES
+(1, 'Ajustes ISO'),
+(2, 'Autoenfoque'),
+(3, 'Compensación de exposición'),
+(4, 'Deteccion de rostro'),
+(5, 'Disparo Continuo o Ráfaga'),
+(6, 'Doble cámara'),
+(7, 'Enfoque automático por detección de fase (PDAF)'),
+(8, 'Enfoque continuo'),
+(9, 'Enfoque manual'),
+(10, 'Enfoque táctil'),
+(11, 'Estabilización óptica de imagen (OIS)'),
+(12, 'Fotos Panorámicas'),
+(13, 'Geoetiquetado'),
+(14, 'Grabación de vídeo a 4K'),
+(15, 'HDR'),
+(16, 'Ajuste de balance de blancos'),
+(17, 'Modo noche'),
+(18, 'RAW'),
+(19, 'Temporizador automático'),
+(20, 'Ultra stable video'),
+(21, 'Zoom Digital'),
+(22, 'Zoom optico'),
+(23, 'Estabilizador de imagen digital'),
+(24, 'Grabación de vídeo a 8K'),
+(25, 'Night Mode 2.0'),
+(26, '	Triple cámara'),
+(27, '	Auto enfoque Laser (LAF)'),
+(28, '	Cuadruple cámara'),
+(29, '	Flicker sensor'),
+(30, '	Noise reduction'),
+(31, '	Tracking AF'),
+(32, '	AF Laser'),
+(33, '	Doble cámara frontal'),
+(34, '	Cámara bajo la pantalla'),
+(35, '	Contrast detection autofocus (CDAF)');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `chatbot`
+--
+
+CREATE TABLE `chatbot` (
+  `id` int NOT NULL,
+  `pregunta` varchar(1000) NOT NULL,
+  `respuestas` varchar(1000) NOT NULL,
+  `valores` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `chatbot`
+--
+
+INSERT INTO `chatbot` (`id`, `pregunta`, `respuestas`, `valores`) VALUES
+(0, 'Vamos a empezar por algo facil, el tamaño', 'Quiero un móvil pequeño, manejable con una sola mano que me quepa en cualquier sitio;Quiero un movil normal;No me importa utilizar el móvil con dos manos, pero que quepa en el bolsillo de mis pantalones más ajustados;Me gustan grandes, cuanto más mejor;Quiero un movil que pueda llevar en cualquier sitio, sin renunciar a un gran tamaño de pantalla', 'pantalla<8600;pantalla BETWEEN 8601 AND 11600;pantalla BETWEEN 11601 AND 12600;pantalla>12600;pantalla = -1'),
+(1, '¿Cómo prefieres que se vea la pantalla?', 'Mientras se vea, no me importa;Colores realistas sin tanta calidad;Colores vivos y negros puros', '(tipo_pantalla=\'LCD\' OR tipo_pantalla=\'OLED\' OR tipo_pantalla=\'AMOLED\');tipo_pantalla = \'LCD\';(tipo_pantalla =\'OLED\' OR tipo_pantalla = \'AMOLED\')'),
+(2, 'Cuando hago alguna búsqueda, o abro cualquier aplicación en mi dispositivo\r\n', 'Necesito que responda a mis acciones con mucha fluidez, que sea más rápido que yo;Con que no se quede colgado me vale', 'tasa_refresco >60;tasa_refresco <=60'),
+(3, 'El móvil lo voy a usar para…', 'Mensajería, llamadas y alguna app más;Mensajería, fotografía, juegos, productividad…;Para todo, sin límites, hasta quiero jugar en realidad virtual', 'resolucion < 2073600;resolucion BETWEEN 2073600 AND 3686400;resolucion > 3686400'),
+(4, 'Cuando uso el móvil…', 'Me centro en la aplicación que estoy usando;Suelo tener varias aplicaciones abiertas a la vez;Todo lo anterior, hasta varios juegos a la vez', 'ram<6;ram BETWEEN 6 AND 8;ram > 8'),
+(5, 'En el móvil me gusta tener…', 'Poca cosa,las apps diarias y alguna foto;Muchas aplicaciones, con bastantes fotografías y vídeos;Es mi ordenador de bolsillo, hasta películas hay', 'memoria_interna<=64;disp_id IN (SELECT disp_id FROM dispositivos WHERE ampliable_sd =1 and memoria_interna BETWEEN 64 and 127 UNION SELECT disp_id FROM dispositivos WHERE ampliable_sd =0 and memoria_interna BETWEEN 128 and 255); memoria_interna >= 256'),
+(6, 'En cuanto a la seguridad de mi dispositivo…', 'Con pin/patrón me vale;Quiero seguridad avanzada, como lector de huella, iris o facial', 'seguridad_facial=0 and seguridad_huella=0;(seguridad_facial=1 OR seguridad_huella=1)'),
+(7, 'En casa utilizo mi móvil…', 'Como cuando estoy fuera de ella, utilizando apps, juegos, mensajería...;Con el móvil controlo mi casa, aire acondicionado, televisión, hasta la lavadora la controlo con él', '(infrarojos=0 OR infrarojos=1);infrarojos=1'),
+(8, '¡Mira que paisaje tan bonito! Hagamos una foto…', 'Para subirla después a redes sociales y se la enseño a un par de amigos.;Yo quiero además poder conectar el móvil a una televisión y presentar mi galería de fotografía;¡Me encantan las fotos! Me gusta poder controlar todos los aspectos de la cámara, edición posterior y después enseñarlas a lo grande, televisión, póster...', 'cam_trasera<=12;cam_trasera BETWEEN 13 AND 50;cam_trasera>=50'),
+(9, '¡Selfie!', '¿Eso qué es?;Venga, que hace mucho que no subo nada;¡Venga, todos juntos, en panorámico, y con desenfoque del paisaje!', 'cam_frontal<=8;cam_frontal BETWEEN 8 AND 12;cam_frontal>12'),
+(10, 'Si te digo que para escuchar música por cable necesitas un adaptador…', 'Ni hablar, quiero poder conectar mis cascos directamente, luego esos adaptadores se pierden, se rompen o te faltan;Ya es momento de modernizarse, ¡para algo existe el bluetooth!', 'jack=1;(jack=0 OR jack=1)'),
+(11, 'Cuando uso mucho mi móvil…', 'No me importa cargarlo varias veces al día;Con que me dure el dia entero me vale;¡Quiero que la bateria me dure varios dias!', 'bateria<6000;bateria BETWEEN 3500 AND 6000;bateria>6000'),
+(12, 'Me gusta cargar el teléfono...', 'Durante toda la noche;Durante un par de horas como máximo;¡Lo pongo un rato y listo!', 'carga_rapida<=25;carga_rapida BETWEEN 25 AND 50;carga_rapida >50'),
+(13, '¡Ya llega la conexión ultra rápida 5G!', 'La quiero;No me interesa, con que pueda enviar mensajes y navegar desde cualquier parte me sirve', 'conexion=1;(conexion=0 OR conexion=1)'),
+(14, 'Quiero que mi nuevo teléfono...', 'Tenga una pantalla plana y que el protector de pantalla sea facil de colocar;Quiero pantalla hasta en los bordes', 'pantalla_curva=0;pantalla_curva=1'),
+(15, 'Y por último ¿Qué pretendo conseguir con mi nuevo móvil?', 'Quiero algo funcional, económico, que pueda hacer un poco de todo;Quiero un móvil elegante de gama alta, que haga de todo y ser la envidia de todo el mundo', 'precio<=600;precio>600');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_sensores`
+--
+
+CREATE TABLE `detalle_sensores` (
+  `id` int NOT NULL,
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `detalle_sensores`
+--
+
+INSERT INTO `detalle_sensores` (`id`, `nombre`) VALUES
+(1, 'Barometro'),
+(2, 'Acelerómetro'),
+(3, 'Acelerómetro'),
+(4, 'Proximidad'),
+(5, 'Scanner LiDAR'),
+(6, 'Brújula'),
+(7, 'Geomagnetico'),
+(8, 'Hall'),
+(9, 'RGB'),
+(10, 'Gravedad'),
+(11, 'Proximidad Virtual'),
+(12, 'Pulso');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dispositivos`
+--
+
+CREATE TABLE `dispositivos` (
+  `disp_id` int NOT NULL,
+  `marca` varchar(20) NOT NULL,
+  `so` varchar(200) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `pulgadas` varchar(4) NOT NULL,
+  `alto` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `ancho` varchar(10) NOT NULL,
+  `grosor` varchar(10) NOT NULL,
+  `peso` varchar(10) NOT NULL,
+  `pantalla` varchar(50) NOT NULL,
+  `tipo_pantalla` varchar(20) NOT NULL,
+  `colores` varchar(500) NOT NULL,
+  `tasa_refresco` varchar(50) NOT NULL,
+  `resolucion_a` int NOT NULL,
+  `resolucion_b` int NOT NULL,
+  `resolucion` varchar(50) NOT NULL,
+  `ram` varchar(50) NOT NULL,
+  `memoria_interna` varchar(50) NOT NULL,
+  `ampliable_sd` tinyint(1) NOT NULL DEFAULT '0',
+  `seguridad_facial` tinyint(1) NOT NULL DEFAULT '0',
+  `seguridad_huella` tinyint(1) NOT NULL DEFAULT '0',
+  `cam_trasera` varchar(50) NOT NULL,
+  `caracteristicas_cam` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `flash` varchar(100) NOT NULL,
+  `estabilizacion_opt` int NOT NULL,
+  `slow_motion` varchar(200) NOT NULL,
+  `cam_frontal` varchar(50) NOT NULL,
+  `cam_otras` longtext NOT NULL,
+  `infrarojos` tinyint(1) NOT NULL DEFAULT '0',
+  `sensores` longtext NOT NULL,
+  `jack` tinyint(1) NOT NULL DEFAULT '0',
+  `nfc` tinyint(1) NOT NULL DEFAULT '0',
+  `bateria` int NOT NULL,
+  `conexion` tinyint(1) NOT NULL DEFAULT '0',
+  `pantalla_curva` tinyint(1) NOT NULL DEFAULT '0',
+  `resistencia` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `carga_rapida` tinyint(1) NOT NULL DEFAULT '0',
+  `fecha` date NOT NULL,
+  `precio` double NOT NULL,
+  `lente_teleobjetivo` varchar(20) NOT NULL,
+  `lente_gran_angular` varchar(20) NOT NULL,
+  `lente_macro` varchar(20) NOT NULL,
+  `usb_tipo` varchar(20) NOT NULL,
+  `usb_carga` tinyint(1) NOT NULL DEFAULT '0',
+  `usb_otg` tinyint(1) NOT NULL DEFAULT '0',
+  `usb_masivo` tinyint(1) NOT NULL DEFAULT '0',
+  `otros` longtext NOT NULL,
+  `dislikes` int NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `dispositivos`
+--
+
+INSERT INTO `dispositivos` (`disp_id`, `marca`, `so`, `nombre`, `pulgadas`, `alto`, `ancho`, `grosor`, `peso`, `pantalla`, `tipo_pantalla`, `colores`, `tasa_refresco`, `resolucion_a`, `resolucion_b`, `resolucion`, `ram`, `memoria_interna`, `ampliable_sd`, `seguridad_facial`, `seguridad_huella`, `cam_trasera`, `caracteristicas_cam`, `flash`, `estabilizacion_opt`, `slow_motion`, `cam_frontal`, `cam_otras`, `infrarojos`, `sensores`, `jack`, `nfc`, `bateria`, `conexion`, `pantalla_curva`, `resistencia`, `carga_rapida`, `fecha`, `precio`, `lente_teleobjetivo`, `lente_gran_angular`, `lente_macro`, `usb_tipo`, `usb_carga`, `usb_otg`, `usb_masivo`, `otros`, `dislikes`) VALUES
+(3, 'Apple', 'IOS 16', 'Iphone SE 2022', '4\'7', '138,40', '67,30', '7,30', '144', '9246', 'LCD', 'negro,purple product red', '60', 750, 1334, '1000500', '4', '64', 0, 1, 1, '12,2', '0,1,2,3,4,5,10,11,12,13,14,15,16,18,19,21', 'LED', 1, '1', '7', '', 0, '0,1,6,2,3,4', 0, 1, 2018, 1, 0, 'IP68', 18, '0008-03-22', 559, '', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(4, 'Apple', 'IOS 16', 'Iphone 13 mini', '5\'4', '131,50', '64,20', '7,70', '141', '8384', 'OLED', 'azul,rojo,rosa', '60', 1080, 2340, '2527200', '4', '128', 0, 1, 0, '12', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Lente gran angular 120º,Modo Retrato con efecto bokeh avanzado y Control de Profundidad,Zoom óptico 2x,Zoom digital 5x', 0, '', 0, 1, 2438, 1, 0, 'IP68', 20, '2014-09-21', 809, '', '12', '', 'conector Lightning', 1, 0, 1, '', 0),
+(5, 'Apple', 'IOS 16', 'Iphone 14 Pro Max', '6\'7', '160,70', '77,60', '7,80', '240', '12320', 'OLED', 'negro,oro,plata,morado', '120', 1290, 2796, '3606840', '6', '1000', 0, 1, 0, '48', '0,1,23,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Estabilización óptica por desplazamiento del sensor,Lente de siete elementos,Lente gran angular 120° con lente de 6 elementos,Zoom óptico x3,Zoom digital x15,Grabación de vídeo en 4K hasta 60 f/s,Modo Cine hasta 4K HDR a 30 f/s,Modo Acción hasta 2,8K a 60 f/s,Grabación de vídeo en HDR con Dolby Vision hasta 4K a 60 f/s,Vídeo a cámara lenta en 1080p a 120 o 240 f/s,Estabilización de vídeo con calidad de cine (4K, 1080p y 720p)', 0, '0,1,2,3,4,5', 0, 1, 4323, 1, 0, 'IP68', 27, '2014-09-21', 1469, '12', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(6, 'Apple', 'IOS 16', 'Iphone 13 pro max', '6\'7', '160,80', '78,10', '7,40', '228', '12480', 'OLED', 'azul,oro,plata,gris', '120', 1284, 2778, '3566952', '6', '128', 0, 1, 0, '12', '0,1,2,3,28,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Extra Lente gran angular 120º, Modo Retrato con efecto bokeh avanzado y Control de Profundidad, Zoom óptico 3x ,Rango de zoom óptico x6, Zoom digital hasta 15x ,Telephoto con OIS Cubierta de la lente de cristal de zafiro Retratos en modo Noche con escáner LiDAR 7p lens 6p lens en gran angular y telephoto', 0, '0,1,2,3,4,5', 0, 1, 4373, 1, 0, 'IP68', 20, '2014-09-21', 1264, '121', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(7, 'Apple', 'IOS 16', 'Iphone 13 mini', '6\'7', '131,50', '64,20', '7,70', '141', '8384', 'OLED', 'azul,rojo,rosa', '60', 1080, 2340, '2527200', '4', '512', 0, 1, 0, '12', '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Lente gran angular 120º,Modo Retrato con efecto bokeh avanzado y Control de Profundidad,Zoom óptico 2x,Zoom digital 5x', 0, '0,1,2,3,4,5', 0, 1, 2438, 1, 0, 'IP68', 20, '2014-09-21', 1159, '', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(8, 'Apple', 'IOS 16', 'Iphone 13', '6\'1', '146,70', '71,15', '7,70', '174', '10366', 'OLED', 'azul, rojo, rosa', '60', 1170, 2532, '2962440', '4', '128', 0, 1, 0, '12', '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Lente gran angular 120º,Modo Retrato con efecto bokeh avanzado y Control de Profundidad,Zoom óptico 2x,Zoom digital 5x', 0, '0,1,2,3,4,5', 0, 1, 3240, 1, 0, 'IP68', 20, '2014-09-21', 909, '', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(9, 'Apple', 'IOS 16', 'Iphone 13', '6\'1', '146,70', '71,15', '7,70', '174', '10366', 'OLED', 'azul, rojo, rosa', '60', 1170, 2532, '2962440', '4', '256', 0, 1, 0, '12', '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Lente gran angular 120º,Modo Retrato con efecto bokeh avanzado y Control de Profundidad,Zoom óptico 2x,Zoom digital 5x', 0, '0,1,2,3,4,5', 0, 1, 3240, 1, 0, 'IP68', 20, '2014-09-21', 1029, '', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(10, 'Apple', 'IOS 16', 'Iphone 13', '6\'1', '146,70', '71,15', '7,70', '174', '10366', 'OLED', 'azul, rojo, rosa', '60', 1170, 2532, '2962440', '4', '512', 0, 1, 0, '12', '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Lente gran angular 120º,Modo Retrato con efecto bokeh avanzado y Control de Profundidad,Zoom óptico 2x,Zoom digital 5x', 0, '0,1,2,3,4,5', 0, 1, 3240, 1, 0, 'IP68', 20, '2014-09-21', 1259, '', '12', '', 'conector Lightning', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(11, 'Apple', 'IOS 16', 'Iphone 12 mini', '5\'4', '131,50', '64,20', '7,40', '135', '8384', 'OLED', 'negro,blanco,azul,rojo,verde', '60', 1080, 2340, '2527200', '4', '64', 0, 1, 0, '12', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22', 'Dual LED', 1, '1', '12', 'Ultra gran angular campo de visión de 120°,Zoom óptico de alejamiento x2,Zoom digital hasta x5,Estabilización óptica de imagen,Lente de cinco elementos (ultra gran angular),Lente de siete elementos,Cubierta de la lente de cristal de zafiro,Grabación de vídeo hasta 4K a 60 f/s,Estabilización óptica de imagen para vídeo (gran angular),Zoom óptico de alejamiento x2,Zoom digital hasta x3,Zoom de audio,Vídeo a cámara lenta en 1080p a 120 o 240 f/s,Estabilización de vídeo con calidad de cine (4K, 1080p y 720p)', 0, '1,2,3,4,5', 0, 1, 2227, 1, 0, 'IP68', 20, '2013-10-20', 631, '', '12', '', 'conector Lightning', 1, 0, 1, '', 1),
+(12, 'Huawei', 'Android 11 Red Velvet Cake', 'Huawei Nova 9', '6\'57', '160,00', '73,70', '7,80', '175', '11680', 'AMOLED', 'negro,azul,verde,violeta', '120', 1080, 2340, '2527200', '8', '128', 1, 1, 1, '50', '14,21,28,23,2,10,7,35,5,13,12,15,4,0,1,3,16,19', 'LED', 0, '1', '32', '', 0, '4,3,0,6,2,10', 0, 1, 4300, 0, 1, 'IP69', 66, '0001-09-21', 297, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 1),
+(13, 'POCO', 'Android 12 Snow Cone', 'Poco x5 pro', '6\'67', '162,90', '76,00', '7,90', '181', '12312', 'AMOLED', 'negro, azul, amarillo', '120', 1080, 2400, '2592000', '8', '256', 0, 1, 1, '108', '14,21,26,23,20,2,10,8,9,7,5,13,12,15,4,0,1,3,16,19,18,17', 'LED', 0, '1', '16', '120 ° FOV Lente gran angular,Lente 6P', 1, '4,3,0,6,2', 1, 1, 5000, 1, 0, 'IP68', 67, '0006-02-23', 399, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(14, 'Oppo', 'Android 13 Tiramisú', 'Oppo find n2 flip', '6\'8', '166,20', '75,20', '7,50', '191', '-1', 'AMOLED', 'negro,marron,violeta', '120', 1080, 2520, '2721600', '8', '256', 0, 1, 1, '50', '30,14,21,6,23,20,2,10,8,9,5,13,12,15,4,0,1,3,16,19,18,17', 'Dual LED', 0, '1', '32', 'Lente 7P,Cámara gran angular, 112º FOV y lente 5P', 0, '4,3,0,6,2,8,9', 0, 1, 4300, 1, 0, 'IP68', 44, '2015-12-22', 1049, '', '8', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,ANT+', 0),
+(15, 'Samsung', 'Android 13 Tiramisú', 'samsung galaxy z fold3', '6\'2', '158,20', '67,10', '14,40', '271', '-1', 'AMOLED', 'negro,plata,verde', '120', 832, 2268, '1886976', '12', '512', 0, 1, 1, '12', '14,21,22,26,23,11,2,10,9,32,7,27,33,34,5,13,12,15,4,0,1,3,16,19,18,17', 'Dual LED', 1, '1', '10', 'Cámara interna frontal bajo pantalla 4MP f/1.8,Lente telephoto con OIS, zoom óptico 2x,Lente gran angular 123º,Video 4K 60fps', 0, '4,3,0,6,2,1,10,8,7', 0, 1, 4400, 1, 0, 'IP68', 25, '0001-08-21', 700, '12', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(16, 'POCO', 'Android 12 Snow Cone', 'Poco x5 pro', '6\'67', '162,90', '76,00', '7,90', '181', '12312', 'AMOLED', 'negro, azul, amarillo', '120', 1080, 2400, '2592000', '6', '128', 0, 1, 1, '108', '14,21,26,23,20,2,10,8,9,7,5,13,12,15,4,0,1,3,16,19,18,17', 'LED', 0, '1', '16', '120 ° FOV Lente gran angular,Lente 6P', 1, '4,3,0,6,2', 1, 1, 5000, 1, 0, 'IP68', 67, '0006-02-23', 349, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(17, 'Samsung', 'Android 13 Tiramisú', 'Samsung Galaxy Z Flip4', '6\'7', '165,20', '71,90', '6,90', '187', '11715', 'AMOLED', 'negro,blanco,rosa,gris,verde,violeta,cobre', '120', 1080, 2640, '2851200', '8', '256', 0, 1, 1, '12,2', '31,14,21,6,11,2,10,7,5,13,12,15,4,0,1,3,16,19', 'LED', 1, '1', '10', 'Lente gran angular 123º,Video 4k@60 fps,HDR10+ recording,Tracking AF', 0, '4,3,0,6,2,1,10,8,7', 0, 1, 3700, 1, 0, 'IP68', 25, '0001-08-22', 1159, '', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(18, 'Samsung', 'Android 13 Tiramisú', 'Samsung Galaxy s23 ultra', '6\'8', '163,40', '78,10', '8,90', '233', '12714', 'AMOLED', 'nego, blanco,verde,violeta,beige', '120', 1440, 3088, '4446720', '8', '256', 0, 11, 1, '200', '0,1,27,2,3,28,4,5,7,9,10,11,23,29,12,13,14,24,15,16,17,18,19,30,31,21,22', 'LED', 1, '1', '12', 'Zoom óptico a 3x y 10x con OIS,Zoom digital 100x', 0, '0,1,6,7,2,10,8,3,4', 0, 1, 5000, 1, 1, 'IP68', 45, '0001-02-23', 1409, '10', '12,2', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(19, 'Samsung', 'Android 13 Tiramisú', 'Samsung Galaxy Z Flip4', '6\'7', '165,20', '71,90', '6,90', '187', '-1', 'AMOLED', 'negro,blanco,rosa,gris,verde,violeta,cobre', '120', 1080, 2640, '2851200', '8', '128', 0, 1, 1, '12,2', '31,14,21,6,11,2,10,7,5,13,12,15,4,0,1,3,16,19', 'LED', 1, '1', '10', 'Lente gran angular 123º,Video 4k@60 fps,HDR10+ recording,Tracking AF', 0, '4,3,0,6,2,1,10,8,7', 0, 1, 3700, 1, 0, 'IP68', 25, '0001-08-22', 979, '', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(20, 'Samsung', 'Android 13 Tiramisú', 'Samsung Galaxy s23', '6\'1', '146,30', '70,90', '7,60', '168', '10220', 'AMOLED', 'negro,blanco,gris,morado,verde lima', '120', 1080, 2340, '2527200', '8', '128', 0, 1, 1, '50', '0 ,1, 2, 3, 4, 5, 7, 10, 11, 23, 12, 13, 14, 24, 15, 16, 25, 18, 19, 26, 21, 22', 'LED', 1, '1', '12', '3X Zoom óptico,30X Zoom digital', 0, '0, 1, 6, 7, 2, 8, 3, 4', 0, 1, 3900, 1, 0, 'IP68', 25, '0001-02-23', 1019, '10', '12,2', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(21, 'Samsung', 'Android 13 Tiramisú', 'Samsung Galaxy A14', '6\'6', '167,70', '78,00', '9,10', '202', '13026', 'LCD', 'negro,plata,rojo,verde', '90', 1080, 2400, '2592000', '4', '128', 1, 1, 1, '50', '14,21,26,23,20,2,10,13,12,15,4,0,1,3,16,19,17', 'LED', 0, '0', '13', '', 0, '4,3,0,2', 1, 1, 5000, 0, 0, 'IP68', 15, '0001-01-23', 229, '', '', '', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(22, 'Samsung', 'Android 13 Tiramisú', 'Samsung Galaxy A14', '6\'6', '167,70', '78,00', '9,10', '202', '13026', 'LCD', 'negro,plata,rojo,verde', '90', 1080, 2400, '2592000', '4', '64', 1, 1, 1, '50', '14,21,26,23,20,2,10,13,12,15,4,0,1,3,16,19,17', 'LED', 0, '0', '13', '', 0, '4,3,0,2', 1, 1, 5000, 0, 0, 'IP68', 15, '0001-01-23', 209, '', '', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(23, 'Samsung', 'Android 13 Tiramisú', 'Samsun galaxy A23', '6\'6', '165,40', '76,90', '8,40', '197', '12540', 'LCD', 'negro,blanco,azul,cobre', '120', 1080, 2408, '2600640', '4', '128', 1, 1, 1, '50', '14,21,28,11,2,10,7,5,13,12,15,4,0,1,3,16,19', 'LED', 1, '1', '8', '', 0, '3,0,6,2,1,11', 1, 1, 5000, 1, 0, 'IP68', 25, '0001-09-22', 239, '', '5', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE', 0),
+(24, 'Samsung', 'Android 12 Snow Cone', 'Samsun galaxy s10', '6\'1', '149,90', '70,40', '7,80', '157', '10430', 'AMOLED', 'negro,blanco,verde', '60', 1440, 3040, '4377600', '8', '128', 1, 1, 1, '12', '14,21,22,26,11,2,10,9,5,13,15,4,0,1,3,16,19,18', 'Dual LED', 1, '1', '16', 'Tercera cámara trasera 16MP,Tercera cámara traseraApertura f/2.2,Tercera cámara trasera Lente gran angular 123º,Dual Pixel OIS,Angulo lente 77º,Cámara frontal vídeo 4K, Segunda cámara trasera Telephoto,Segunda cámara trasera Estabilización óptica de imagen, Segunda cámara trasera Angulo lente 45º,Segunda cámara trasera Auto enfoque', 0, '4,3,0,6,2,1,8,12', 1, 1, 3400, 0, 1, 'IP68', 15, '2020-02-19', 349, '13', '16', '', 'C', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,ANT+', 0),
+(25, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi redmi note 12 pro', '6\'67', '162,90', '76,00', '7,90', '187', '12312', 'AMOLED', 'negro,blanco,azul', '120', 1080, 2400, '2592000', '6', '128', 0, 1, 1, '50', '14,21,26,23,11,20,2,10,8,9,7,5,13,12,15,4,0,1,3,16,19,18,17', 'LED', 1, '1', '16', 'Lente 6 elementos,Lente gran angular 119º', 1, '4,3,0,6,2', 1, 1, 5000, 1, 0, 'IP68', 67, '2027-10-22', 399, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(26, 'Xiaomi', 'Android 11 Red Velvet Cake', 'Xiaomi redmi note 11 pro+', '6\'67', '163,60', '76,20', '8,30', '204', '12388', 'AMOLED', 'negro,blanco,verde,cian,oro rosa', '120', 1080, 2400, '2592000', '8', '256', 1, 1, 1, '108', '14,21,26,23,20,2,10,9,5,13,12,15,4,0,1,3,16,19,18,17', 'LED', 0, '1', '16', 'Lente 6P,Lente gran angular 120º', 1, '3,0,6,2,11', 1, 1, 4500, 1, 0, 'IP68', 120, '0001-10-21', 449, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(27, 'Xiaomi', 'Android 11 Red Velvet Cake', 'Xiaomi redmi note 11 pro+', '6\'67', '163,60', '76,20', '8,30', '204', '12388', 'AMOLED', 'negro,blanco,verde,cian,oro rosa', '120', 1080, 2400, '2592000', '6', '128', 1, 1, 1, '108', '14,21,26,23,20,2,10,9,5,13,12,15,4,0,1,3,16,19,18,17', 'LED', 0, '1', '16', 'Lente 6P,Lente gran angular 120º', 1, '3,0,6,2,11', 1, 1, 4500, 1, 0, 'IP68', 120, '0001-10-21', 399, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.2 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(28, 'Xiaomi', 'Android 11 Red Velvet Cake', 'Xiaomi redmi 10 2022', '6\'58', '164,00', '76,10', '8,90', '200', '12464', 'LCD', 'negro,gris,cyan green', '90', 1080, 2408, '2600640', '4', '128', 1, 1, 1, '50', '14,21,6,23,2,10,13,15,4,0,1,3,16,19,17', 'LED', 0, '0', '5', '', 1, '4,3,0,6', 1, 1, 5000, 1, 0, 'IP68', 18, '0001-03-22', 139, '', '', '', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(29, 'Xiaomi', 'Android 9.0 P', 'xiaomi Mi 9 SE', '5\'97', '147,50', '70,50', '7,50', '1155', '10290', 'AMOLED', 'negro,azul,rosa', '60', 1080, 2340, '2527200', '6', '64', 0, 1, 1, '48', '14,21,22,26,23,2,10,5,13,15,4,0', 'Dual LED', 0, '1', '24,8', 'Segunda cámara telephoto lens,Tercera cámara Samsung S5K3L6 1.12μm 13MP,Tercera cámara lente super gran angular,Tercera cámara apertura f/2.4,Video 4K 30 fps', 1, '3,0,6,2,11', 0, 1, 3070, 0, 0, 'IP68', 18, '2020-02-19', 349, '8', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(30, 'Xiaomi', 'Android 9.0 P', 'xiaomi Mi 9 SE', '5\'97', '147,50', '70,50', '7,50', '1155', '10290', 'AMOLED', 'negro,azul,rosa', '60', 1080, 2340, '2527200', '6', '128', 0, 1, 1, '48', '14,21,22,26,23,2,10,5,13,15,4,0', 'Dual LED', 0, '1', '24,8', 'Segunda cámara telephoto lens,Tercera cámara Samsung S5K3L6 1.12μm 13MP,Tercera cámara lente super gran angular,Tercera cámara apertura f/2.4,Video 4K 30 fps', 1, '3,0,6,2,11', 0, 1, 3070, 0, 0, 'IP68', 18, '2020-02-19', 349, '8', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(31, 'Xiaomi', 'Android 13 Tiramisú', 'xiaomi 13 pro', '6\'73', '162,90', '74,60', '8,70', '210', '11988', 'OLED', 'negro,blanco', '120', 1440, 3200, '4608000', '12', '256', 0, 1, 1, '50', '0,1,2,3,4,5,7,8,9,10,11,23,29,12,13,14,24,15,16,17,30,18,19,26,20,21,22', 'LED', 1, '1', '32', 'Sensor Teleobjetivo con OIS,8P Lens,Zoom óptico 3.2x,Video hasta 4K60fps y 8K24fps,Lentes Leica,Lente gran angular 115º', 1, '0,6,2,3,4,9', 0, 1, 4820, 1, 1, 'IP68', 120, '2011-12-22', 1399, '50', '50', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(32, 'Xiaomi', 'Android 13 Tiramisú', 'Xiaomi 13', '6\'36', '152,80', '71,50', '8,00', '189', '10792', 'OLED', 'negro,balnco,verde, azul', '120', 1080, 2400, '2592000', '8', '128', 0, 1, 1, '54', '0,1,2,3,4,5,7,8,9,10,11,23,29,12,13,14,24,15,16,17,30,18,19,26,20,21,22', 'LED', 1, '1', '32', 'Sensor Teleobjetivo con OIS,Zoom óptico 3.2x,Video hasta 4K60fps y 8K24fps,Lentes ópticas profesionales de Leica', 1, '0,6,2,3,4,9', 0, 1, 4500, 1, 0, 'IP68', 67, '0001-12-22', 999, '10', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(33, 'Xiaomi', 'Android 13 Tiramisú', 'Xiaomi 13', '6\'36', '152,80', '71,50', '8,00', '189', '10792', 'OLED', 'negro,balnco,verde', '120', 1080, 2400, '2592000', '12', '256', 0, 1, 1, '54', '0,1,2,3,4,5,7,8,9,10,11,23,29,12,13,14,24,15,16,17,30,18,19,26,20,21,22', 'LED', 1, '1', '32', 'Sensor Teleobjetivo con OIS,Zoom óptico 3.2x,Video hasta 4K60fps y 8K24fps,Lentes ópticas profesionales de Leica', 1, '0,6,2,3,4,9', 0, 1, 4500, 1, 0, 'IP68', 67, '0001-12-22', 11099, '10', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(34, 'Xiaomi', 'Android 13 Tiramisú', 'Xiaomi 12 ', '6\'28', '152,70', '69,90', '8,20', '180', '10488', 'AMOLED', 'negro,azul,violeta', '120', 1080, 2400, '2592000', '8', '256', 0, 1, 1, '50', '0,1,2,3,4,5,7,8,9,10,11,23,12,13,14,24,15,16,17,18,19,26,20,21', 'LED', 1, '1', '32', '6P Lens,Lente gran angular 5P 123° FOV,8K Video 24fps,4K Video 30fps', 1, '3,0,6,2,9,11', 0, 1, 4500, 1, 1, 'IP68', 67, '0001-12-22', 799, '', '13', '5', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(35, 'Xiaomi', 'Android 13 Tiramisú', 'xiaomi 12 pro', '6\'73', '163,60', '74,60', '8,20', '201', '12062', 'AMOLED', 'negro,azul', '120', 1440, 3200, '4608000', '8', '256', 0, 1, 1, '50', '14,24,21,22,26,23,11,20,2,10,8,9,7,5,13,12,15,4,0,1,3,16,19,18,17', 'LED', 1, '1', '32', '', 1, '3,0,6,2,1,9,11', 0, 1, 5160, 1, 1, 'IP68', 67, '0001-12-22', 999, '', '13', '', 'C', 1, 0, 1, 'Bluetooth 5.3 LEBajo consumo de energia, Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica, Refrigeración', 0),
+(36, 'Xiaomi', 'Android 11 Red Velvet Cake', 'Xiaomi redmi Note 11s', '6\'43', '159,90', '73,40', '8,10', '179', '11607', 'AMOLED', 'negro,azul,pearl white', '90', 1080, 2400, '2592000', '6', '64', 1, 1, 1, '8', '21,28,23,2,10,13,15,4,0,1,3,16,19,17', 'LED', 0, '1', '16', 'Lente gran angular 118°', 1, '3,0,6,2,11', 1, 1, 5000, 0, 0, 'IP68', 33, '2026-01-22', 199, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(37, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi Mi 10T Pro', '6,67', '165,1', '76,4', '9,3', '218', '12540', 'LCD', 'negro,azul,plara', '144', 1080, 2400, '2592000', '8', '256', 0, 1, 1, '108', '14,24,21,26,23,11,2,10,8,9,13,12,15,4,0,1,16,19,36,18,17', 'LED', 1, '1', '20', 'Lente 6P,Lente gran angular 123º,Lente gran angular lente 5P,Lente macro hasta 2 cm lente 3P,Video 4K 60fps,Video 8K 30fps,Zoom digital 10X,Cámara frontal lente 5P', 1, '3,0,6,2,11', 0, 1, 5000, 1, 0, 'IP68', 33, '0001-09-20', 649, '', '13', '5', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(38, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi Mi 10T Lite', '6,67', '165,4', '76,8', '9', '215', '12540', 'LCD', 'azul,oro,gris', '120', 1080, 2400, '2592000', '6', '64', 1, 1, 0, '64', '14,21,28,23,2,10,13,15,4,0,1,3,16,19,17', 'LED', 0, '1', '16', 'Lente 6P,Lente gran angular 123º,Lente gran angular lente 5P,Lente macro hasta 2 cm lente 3P,Video 4K 60fps,Video 8K 30fps,Zoom digital 10X,Cámara frontal lente 5P', 1, '3,0,6,2,11', 1, 1, 4820, 1, 0, '', 33, '2030-09-20', 279, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,ANT+', 0),
+(39, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi Mi 10T Lite', '6,67', '165,4', '76,8', '9', '215', '12540', 'LCD', 'azul,oro,gris', '120', 1080, 2400, '2592000', '6', '28', 1, 1, 0, '64', '14,21,28,23,2,10,13,15,4,0,1,3,16,19,17', 'LED', 0, '1', '16', 'Lente 6P,Lente gran angular 123º,Lente gran angular lente 5P,Lente macro hasta 2 cm lente 3P,Video 4K 60fps,Video 8K 30fps,Zoom digital 10X,Cámara frontal lente 5P', 1, '3,0,6,2,11', 1, 1, 4820, 1, 0, '', 33, '2030-09-20', 329, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.0 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,ANT+', 0),
+(40, 'Xiaomi', 'Android 11 Red Velvet Cake', 'Xiaomi Redmi Note 11S 5G', '6,6', '163,6', '75,8', '8,7', '195', '12225', 'LCD', 'negro,azul,cian', '90', 1080, 2400, '2592000', '6', '128', 1, 1, 1, '50', '14,21,26,23,20,2,10,9,5,13,12,15,4,0,1,3,16,19,17', 'LED', 0, '1', '13', '', 0, '3,0,6,2,11', 1, 1, 5000, 1, 0, '', 33, '0001-03-22', 299, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(41, 'Xiaomi', '	Android 10 Q', 'Xiaomi Redmi Note 9T', '6,53', '161,9', '77,3', '9', '199', '12397', 'LCD', 'negro,morado', '90', 1080, 2340, '2527200', '4', '128', 1, 1, 11, '48', '14,21,26,23,2,10,9,5,13,12,15,4,0,1,3,16,19', 'Dual LED', 0, '1', '13', '', 1, '3,0,6,2,11', 1, 1, 5000, 1, 0, '', 18, '0001-01-21', 269, '', '', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(42, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi Redmi Note 10 5G', '6,5', '181,8', '75,3', '8,9', '190', '13575', 'LCD', 'azul, plata,gris,cyan green', '90', 1080, 2400, '2592000', '4', '64', 1, 1, 1, '48', '14,21,26,23,2,10,13,15,4,0,1,3,16,19,17', 'LED', 0, '1', '8', '', 1, '3,0,6,2,11', 1, 1, 5000, 1, 0, '', 18, '0004-03-21', 249, '', '', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(43, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi Redmi Note 10 5G', '6,5', '181,8', '75,3', '8,9', '190', '13575', 'LCD', 'azul, plata,gris,cyan green', '90', 1080, 2400, '2592000', '4', '128', 1, 1, 1, '48', '14,21,26,23,2,10,13,15,4,0,1,3,16,19,17', 'LED', 0, '1', '8', '', 1, '3,0,6,2,11', 1, 1, 5000, 1, 0, '', 18, '0004-03-21', 269, '', '', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(44, 'Xiaomi', '	Android 10 Q', 'Xiaomi Redmi Note 9T', '6,53', '161,9', '77,3', '9', '199', '12397', 'LCD', 'negro,morado', '90', 1080, 2340, '2527200', '4', '64', 1, 1, 11, '48', '14,21,26,23,2,10,9,5,13,12,15,4,0,1,3,16,19', 'Dual LED', 0, '1', '13', '', 1, '3,0,6,2,11', 1, 1, 5000, 1, 0, '', 18, '0001-01-21', 249, '', '', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(45, 'Xiaomi', 'Android 12 Snow Cone', 'Xiaomi Mi 10T', '6,67', '165,1', '76,4', '9,3', '218', '12540', 'LCD', 'negro,plata', '144', 1080, 2400, '2592000', '6', '128', 0, 1, 1, '64', '14,24,21,26,23,2,10,8,9,32,13,12,15,4,0,1,16,19,36,18,17', 'LED', 1, '1', '20', 'Lente 6P,Lente gran angular 123º,Lente gran angular lente 5P,Lente macro hasta 2 cm lente 3P,Video 4K 60fps,Video 8K 30fps,Zoom digital 10X,Cámara frontal lente 5P', 1, '3,0,6,2,11', 0, 1, 5000, 1, 0, 'IP68', 33, '2030-09-20', 499, '', '13', '5', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0),
+(46, 'Xiaomi', 'Android 11 Red Velvet Cake', 'Xiaomi Redmi Note 11S 5G', '6,6', '163,6', '75,8', '8,7', '195', '12225', 'LCD', 'negro,azul,cian', '90', 1080, 2400, '2592000', '4', '64', 1, 1, 1, '50', '14,21,26,23,20,2,10,9,5,13,12,15,4,0,1,3,16,19,17', 'LED', 0, '1', '13', '', 0, '3,0,6,2,11', 1, 1, 5000, 1, 0, '', 33, '0001-03-22', 279, '', '8', '2', 'C', 1, 0, 1, 'Bluetooth 5.1 LEBajo consumo de energia,Computer Sync,OTA Sync,Compartir internet,VoLTE,UMA,eSIM,carga inalambrica', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `disp_interes`
+--
+
+CREATE TABLE `disp_interes` (
+  `disp_id` int NOT NULL,
+  `interes_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `disp_interes`
+--
+
+INSERT INTO `disp_interes` (`disp_id`, `interes_id`) VALUES
+(1, 1),
+(1, 3),
+(1, 5),
+(1, 6),
+(1, 7),
+(2, 1),
+(2, 3),
+(2, 5),
+(2, 6),
+(2, 7),
+(3, 1),
+(3, 3),
+(3, 5),
+(3, 6),
+(3, 7),
+(5, 1),
+(5, 3),
+(5, 5),
+(5, 6),
+(5, 7),
+(6, 1),
+(6, 3),
+(6, 5),
+(6, 6),
+(6, 7),
+(7, 1),
+(7, 3),
+(7, 5),
+(7, 6),
+(7, 7),
+(8, 1),
+(8, 3),
+(8, 5),
+(8, 6),
+(8, 7),
+(9, 1),
+(9, 3),
+(9, 5),
+(9, 6),
+(9, 7),
+(10, 1),
+(10, 3),
+(10, 5),
+(10, 6),
+(10, 7),
+(12, 4),
+(12, 7),
+(12, 5),
+(13, 1),
+(13, 2),
+(13, 3),
+(13, 7),
+(14, 1),
+(14, 3),
+(14, 6),
+(15, 1),
+(15, 3),
+(15, 6),
+(16, 1),
+(16, 2),
+(16, 3),
+(16, 7),
+(17, 1),
+(17, 3),
+(17, 6),
+(18, 2),
+(18, 6),
+(18, 4),
+(18, 1),
+(19, 1),
+(19, 3),
+(19, 6),
+(20, 2),
+(20, 6),
+(20, 4),
+(20, 1),
+(21, 7),
+(21, 5),
+(22, 7),
+(22, 5),
+(23, 5),
+(23, 4),
+(23, 7),
+(24, 5),
+(24, 4),
+(24, 7),
+(25, 2),
+(25, 1),
+(25, 3),
+(25, 7),
+(26, 2),
+(26, 1),
+(26, 3),
+(26, 7),
+(27, 2),
+(27, 1),
+(27, 3),
+(27, 7),
+(28, 5),
+(28, 4),
+(28, 7),
+(29, 5),
+(29, 4),
+(29, 7),
+(30, 5),
+(30, 4),
+(30, 7),
+(31, 2),
+(31, 1),
+(31, 3),
+(31, 7),
+(31, 6),
+(32, 2),
+(32, 1),
+(32, 3),
+(32, 7),
+(32, 6),
+(33, 2),
+(33, 1),
+(33, 3),
+(33, 7),
+(33, 6),
+(34, 2),
+(34, 1),
+(34, 3),
+(34, 7),
+(34, 6),
+(35, 2),
+(35, 1),
+(35, 3),
+(35, 7),
+(35, 6),
+(36, 2),
+(36, 1),
+(36, 7),
+(36, 6),
+(4, 1),
+(4, 3),
+(4, 5),
+(4, 6),
+(4, 7),
+(37, 1),
+(37, 2),
+(37, 3),
+(37, 4),
+(37, 7),
+(38, 1),
+(38, 4),
+(38, 5),
+(38, 7),
+(39, 1),
+(39, 4),
+(39, 5),
+(39, 7),
+(40, 1),
+(40, 4),
+(40, 5),
+(40, 7),
+(41, 1),
+(41, 4),
+(41, 5),
+(41, 7),
+(42, 3),
+(42, 4),
+(42, 5),
+(42, 7),
+(43, 3),
+(43, 4),
+(43, 5),
+(43, 7),
+(44, 1),
+(44, 4),
+(44, 5),
+(44, 7),
+(45, 3),
+(45, 4),
+(45, 5),
+(45, 7),
+(46, 1),
+(46, 4),
+(46, 5),
+(46, 7),
+(11, 1),
+(11, 3),
+(11, 5),
+(11, 6),
+(11, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `galeria_disp`
+--
+
+CREATE TABLE `galeria_disp` (
+  `disp_id` int NOT NULL,
+  `imagen` varchar(200) NOT NULL,
+  `destacada` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `galeria_disp`
+--
+
+INSERT INTO `galeria_disp` (`disp_id`, `imagen`, `destacada`) VALUES
+(3, 'iphone SE 2022.jpeg', 1),
+(3, 'iphone SE 2022-2.webp', 0),
+(3, 'iphone SE 2022-3.webp', 0),
+(4, 'iphone 13_mini.jpeg', 1),
+(4, 'iphone 13_mini-2.jpeg', 0),
+(4, 'iphone 13_mini-3.jpeg', 0),
+(5, 'iphone 14_pro_max.jpeg', 1),
+(5, 'iphone 14_pro_max-2.png', 0),
+(5, 'iphone 14_pro_max-3.webp', 0),
+(6, 'iphone 13_pro max.jpeg', 1),
+(6, 'iphone 13_pro max-3.webp', 0),
+(6, ' iphone 13_pro max-2.webp', 0),
+(7, 'iphone 13_mini.jpeg', 1),
+(7, 'iphone 13_mini-2.jpeg', 0),
+(7, 'iphone 13_mini-3.jpeg', 0),
+(8, 'iphone 13.jpeg', 1),
+(8, 'iphone 13-2.webp', 0),
+(8, 'iphone 13-3.webp', 0),
+(9, 'iphone 13-2.jpeg', 0),
+(9, 'iphone 13-2.jpeg', 0),
+(9, 'iphone 13-2.jpeg', 0),
+(10, 'iphone 13.jpeg', 1),
+(10, 'iphone 13-2.webp', 0),
+(10, 'iphone 13-3.webp', 0),
+(11, 'iphone 12_mini.jpeg', 1),
+(11, 'iphone 12_mini-2.jpeg', 0),
+(11, 'iphone 12_mini-2.webp', 0),
+(12, 'huawei nova 9.jpeg', 1),
+(12, 'huawei nova 9-2.webp', 0),
+(12, 'huawei nova 9-3.webp', 0),
+(12, 'huawei nova 9-4.webp', 0),
+(13, 'poco x5_pro.jpeg', 1),
+(13, 'poco x5_pro-2.jpeg', 0),
+(15, 'z fold3.jpeg', 1),
+(15, 'z fold3-2.webp', 0),
+(16, 'poco x5_pro.jpeg', 1),
+(16, 'poco x5_pro-2.jpeg', 0),
+(17, 'z flip4.jpeg', 1),
+(17, 'z flip4-3.webp', 0),
+(17, 'z flip4-2.webp', 0),
+(18, 'samsung s23 ultra.jpeg', 1),
+(18, 'samsung s23 ultra-2.webp', 0),
+(19, 'z flip4.jpeg', 1),
+(19, 'z flip4-3.webp', 0),
+(19, 'z flip4-2.webp', 0),
+(20, 'samsung s23.jpeg', 1),
+(20, 'samsung s23-2.webp', 0),
+(21, 'samsung a14.jpeg', 1),
+(21, 'samsung a14-2.webp', 0),
+(22, 'samsung a14.jpeg', 1),
+(22, 'samsung a14-2.webp', 0),
+(23, 'samsung a23.jpeg', 1),
+(23, 'samsung a23-2.webp', 0),
+(24, 'samsung s10.jpeg', 1),
+(24, 'samsung s10-2.webp', 0),
+(24, 'samsung s10-3.webp', 0),
+(25, 'redmi note 12 pro.jpeg', 1),
+(25, 'redmi note 12 pro-2.webp', 0),
+(26, 'redmi note 11 pro_mas.jpeg', 1),
+(26, 'redmi note 11 pro_mas-2.webp', 0),
+(27, 'redmi note 11 pro_mas.jpeg', 1),
+(27, 'redmi note 11 pro_mas-2.webp', 0),
+(28, 'redmi 10_2022.jpeg', 1),
+(28, 'redmi 10_2022-2.webp', 0),
+(29, 'xiaomi mi9.jpeg', 1),
+(29, 'xiaomi mi9-2.webp', 0),
+(30, 'xiaomi mi9.jpeg', 1),
+(30, 'xiaomi mi9-2.webp', 0),
+(31, 'xiaomi 13_pro.jpeg', 1),
+(31, 'xiaomi 13_pro.jpeg', 0),
+(32, 'xiaomi 13.jpeg', 1),
+(32, 'xiaomi 13-2.webp', 0),
+(33, 'xiaomi 13.jpeg', 1),
+(33, 'xiaomi 13-2.webp', 0),
+(34, 'xiaomi 12.jpeg', 1),
+(34, 'xiaomi 12-2.webp', 0),
+(35, 'xiaomi 12_pro.jpeg', 1),
+(35, 'xiaomi 12_pro-2.webp', 0),
+(36, 'redmi note11s.jpeg', 1),
+(36, 'redmi note11s-2.webp', 0),
+(37, 'xiaomi mi 10t_pro.jpeg', 1),
+(37, 'xiaomi mi 10t_pro-2.webp', 0),
+(38, 'xiaomi mi 10t_lite.jpeg', 1),
+(38, 'xiaomi mi 10t_lite-2.webp', 0),
+(39, 'xiaomi mi 10t_lite.jpeg', 1),
+(39, 'xiaomi mi 10t_lite-2.webp', 0),
+(40, 'redmi note 11s_5g.jpeg', 1),
+(40, 'redmi note 11s_5g-2.webp', 0),
+(41, 'redmi note 9t.jpeg', 1),
+(41, 'redmi note 9t-2.webp', 0),
+(42, 'redmi note 10_5g.jpeg', 1),
+(42, 'redmi note 10_5g-2.webp', 0),
+(43, 'redmi note 10_5g.jpeg', 1),
+(43, 'redmi note 10_5g-2.webp', 0),
+(44, 'redmi note 9t.jpeg', 1),
+(44, 'redmi note 9t-2.webp', 0),
+(45, 'xiaomi mi 10t_pro.jpeg', 1),
+(45, 'xiaomi mi 10t_pro-2.webp', 0),
+(46, 'redmi note 11s_5g.jpeg', 1),
+(46, 'redmi note 11s_5g-2.webp', 0),
+(14, 'opp find n2 flip.jpeg', 1),
+(14, 'opp find n2 flip-2.webp', 0),
+(14, 'opp find n2 flip-3.jpeg', 0),
+(11, 'iphone 12_mini-3.webp', 0),
+(9, 'iphone 13.jpeg', 1),
+(9, 'iphone 13-3.jpeg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `intereses`
+--
+
+CREATE TABLE `intereses` (
+  `interes_id` int NOT NULL,
+  `interes` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `intereses`
+--
+
+INSERT INTO `intereses` (`interes_id`, `interes`) VALUES
+(1, 'Fotografía y diseño'),
+(2, 'Gamer pro'),
+(3, 'Tecnologías y ultimas novedades'),
+(4, 'Entretenimiento a tope'),
+(5, 'Uso de redes sociales'),
+(6, 'Estructura, diseño e interfaz llamativa'),
+(7, 'Estilo de vida');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `marcas`
+--
+
+CREATE TABLE `marcas` (
+  `marca_id` int NOT NULL,
+  `marca` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `marcas`
+--
+
+INSERT INTO `marcas` (`marca_id`, `marca`) VALUES
+(1, 'Apple'),
+(2, 'Samsung'),
+(3, 'Xiaomi'),
+(4, 'Huawei'),
+(5, 'Oppo'),
+(6, 'POCO'),
+(7, 'Lg'),
+(8, 'Google'),
+(9, 'One Plus'),
+(10, 'Meizu');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ocupaciones`
+--
+
+CREATE TABLE `ocupaciones` (
+  `id_ocupacion` int NOT NULL,
+  `descripcion` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `ocupaciones`
+--
+
+INSERT INTO `ocupaciones` (`id_ocupacion`, `descripcion`) VALUES
+(1, 'Agricultura, ganadería, silvicultura y pesca'),
+(2, 'Industrias extractivas'),
+(3, 'Industria manufacturera'),
+(4, 'Suministro de energía eléctrica, gas, vapor y aire acondicionado'),
+(5, 'Suministro de agua, actividades de saneamiento, gestión de residuos y descontaminación'),
+(6, 'Construcción'),
+(7, 'Comercio al por mayor y al por menor, reparación de vehículos de motor y motocicletas'),
+(8, 'Transporte y almacenamiento'),
+(9, 'Hostelería'),
+(10, 'Información y telecomunicaciones'),
+(11, 'Actividades financieras y de seguros'),
+(12, 'Actividades inmobiliarias'),
+(13, 'Actividades profesionales, científicas y técnicas'),
+(14, 'Actividades administrativas y servicios auxiliares'),
+(15, 'Administración Pública y Defensa, seguridad social obligatoria'),
+(16, 'Educación'),
+(17, 'Actividades sanitarias y de servicios sociales'),
+(18, 'Actividades artísticas, recreativas y de entretenimiento'),
+(19, 'Otros servicios'),
+(20, 'Actividades de los hogares como empleadores de personal doméstico, como productores de bienes y servicios para uso propio'),
+(21, 'Actividades de organizaciones y organismos extraterritoriales');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `precios_por_disp`
+--
+
+CREATE TABLE `precios_por_disp` (
+  `shop` varchar(500) NOT NULL,
+  `disp_id` int NOT NULL,
+  `url` varchar(2000) NOT NULL,
+  `precio` double NOT NULL,
+  `img` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `precios_por_disp`
+--
+
+INSERT INTO `precios_por_disp` (`shop`, `disp_id`, `url`, `precio`, `img`) VALUES
+('mediamarkt', 12, 'https://www.mediamarkt.es/es/product/_movil-huawei-nova-9-azul-128-gb-8-gb-667-full-hd-120-hz-snapdragon-778g-4g-android-freebuds-pro-1520833.html?utm_source=google&utm_medium=cpc&utm_campaign=rt_shopping_generic_nsp_na_MM-ES-S-G-CAT-PLA-PMAX.PH-PROMO-ALL-ALL&gclid=CjwKCAjw0ZiiBhBKEiwA4PT9z7rVfqZtU4TEdVEfOUMiHxM1hr18YJ91Vcl8Gf69nKtzBttqTmsb6hoCh-oQAvD_BwE&gclsrc=aw.ds', 294.19, 'mediamarkt.svg'),
+('apple', 11, 'https://www.apple.com/es/shop/buy-iphone/iphone-12', 809, 'apple.svg'),
+('apple', 8, 'https://www.apple.com/es/shop/buy-iphone/iphone-13', 909, 'apple.svg'),
+('apple', 9, 'https://www.apple.com/es/shop/buy-iphone/iphone-13', 1029, 'apple.svg'),
+('apple', 10, 'https://www.apple.com/es/shop/buy-iphone/iphone-13', 1259, 'apple.svg'),
+('apple', 4, 'https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-5,4%E2%80%B3-256gb-medianoche', 809, ''),
+('apple', 7, 'https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-5,4%E2%80%B3-256gb-medianoche', 1159, 'apple.svg'),
+('mediamarkt', 9, 'https://www.mediamarkt.es/es/product/_apple-iphone-13-rosa-256-gb-5g-61-oled-super-retina-xdr-chip-a15-bionic-ios-1518046.html', 979, 'mediamarkt.svg'),
+('mediamarkt', 12, 'https://www.mediamarkt.es/es/product/_movil-huawei-nova-9-azul-128-gb-8-gb-667-full-hd-120-hz-snapdragon-778g-4g-android-freebuds-pro-1520833.html?utm_source=google&utm_medium=cpc&utm_campaign=rt_shopping_generic_nsp_na_MM-ES-S-G-CAT-PLA-PMAX.PH-PROMO-ALL-ALL&gclid=CjwKCAjw0ZiiBhBKEiwA4PT9z7rVfqZtU4TEdVEfOUMiHxM1hr18YJ91Vcl8Gf69nKtzBttqTmsb6hoCh-oQAvD_BwE&gclsrc=aw.ds', 294.19, 'mediamarkt.svg'),
+('apple', 11, 'https://www.apple.com/es/shop/buy-iphone/iphone-12', 809, 'apple.svg'),
+('apple', 8, '	https://www.apple.com/es/shop/buy-iphone/iphone-13', 909, 'apple.svg'),
+('apple', 9, '	https://www.apple.com/es/shop/buy-iphone/iphone-13', 1029, 'apple.svg'),
+('apple', 10, '	https://www.apple.com/es/shop/buy-iphone/iphone-13', 1259, 'apple.svg'),
+('apple', 8, '	https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-6,1%E2%80%B3-128gb-rosa', 909, '	apple.svg'),
+('apple', 9, '	https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-6,1%E2%80%B3-256gb-rosa', 1029, '	apple.svg'),
+('apple', 10, '	https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-6,1%E2%80%B3-512gb-rosa', 1259, '	apple.svg'),
+('apple', 4, '	https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-5,4%E2%80%B3-256gb-medianoche', 809, '	apple.svg'),
+('apple', 7, '	https://www.apple.com/es/shop/buy-iphone/iphone-13/pantalla-de-5,4%E2%80%B3-256gb-medianoche', 1159, '	apple.svg'),
+('amazon', 4, '	https://www.amazon.es/Apple-iPhone-Mini-128-GB-Medianoche/dp/B09G9G48DW/ref=sr_1_1_sspa?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2Z6M0Q9NA5V3G&keywords=iphone+13+mini&qid=1683737282&sprefix=iphone+%C2%BA3+mini%2Caps%2C118&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1', 749, '	amazon.svg'),
+('amazon', 7, '	https://www.amazon.es/Apple-iPhone-Mini-128-GB-Medianoche/dp/B09G9L8NNY/ref=sr_1_1_sspa?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2Z6M0Q9NA5V3G&keywords=iphone%2B13%2Bmini&qid=1683737282&sprefix=iphone%2B%C2%BA3%2Bmini%2Caps%2C118&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1', 1075, 'amazon.svg'),
+('amazon', 6, '	https://www.amazon.es/Apple-iPhone-128GB-Azul-alpino/dp/B09MJRVS68/ref=sr_1_5?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1G9YI5L4A38J3&keywords=iphone+13+pro+max&qid=1683737457&sprefix=iphone+13+pro+max%2Caps%2C122&sr=8-5', 949, 'amazon.svg'),
+('apple', 5, '	https://www.apple.com/es/shop/buy-iphone/iphone-14-pro', 1469, 'apple.svg'),
+('aaple', 3, '	https://www.apple.com/es/shop/buy-iphone/iphone-se	', 559, '	apple.svg'),
+('oppo', 14, '	https://store.oppomobile.es/content/30-nuevo-find-n2-flip?gclid=CjwKCAjwl6OiBhA2EiwAuUwWZdzxeOlCNvJxY7858j3uhKxSlSDMggf0DTUfPc42Y7zWMhzD1ynC5BoCHIMQAvD_BwE', 1049, '	oppo.svg'),
+('mi', 13, '	https://www.mi.com/es/product/poco-x5-pro-5g/?skupanel=1&gid=4223700931	', 399, '	xiaomi.svg'),
+('mi', 16, '	https://www.mi.com/es/product/poco-x5-pro-5g/', 349, '	xiaomi.svg'),
+('samsung', 23, '	https://www.samsung.com/es/smartphones/galaxy-a/galaxy-a23-5g-awesome-black-128gb-sm-a236bzkveub/buy/', 249, '	samsung.svg'),
+('amazon', 24, '	https://www.amazon.es/Samsung-Galaxy-S10-Smartphone-Version/dp/B07NWTMKNC/ref=pd_lpo_sccl_1/260-5957110-7853042?pd_rd_w=IDm4j&content-id=amzn1.sym.77ceffbc-2315-45af-a132-add588fc5fe3&pf_rd_p=77ceffbc-2315-45af-a132-add588fc5fe3&pf_rd_r=0J199FPKM3WPN6GAR2P2&pd_rd_wg=wASn3&pd_rd_r=e6818288-863f-4453-abfc-5ed464153b3d&pd_rd_i=B07NWTMKNC&psc=1', 399, 'amazon.svg'),
+('amazon', 21, '	https://www.amazon.es/SAMSUNG-Galaxy-128GB-Verde-SM-A145RLGVEUB/dp/B0BYX7SMYY/ref=sr_1_2_mod_primary_new?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=16DSMTVE7YQ4P&keywords=galaxy+a+14&qid=1683738000&s=electronics&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=galaxy+a14%2Celectronics%2C284&sr=1-2', 204, 'amazon.svg'),
+('mediamarkt', 22, '	https://www.mediamarkt.es/es/product/_movil-samsung-galaxy-a14-plata-64-gb-4-gb-ram-66-fhd-mediatek-helio-g85-5000-mah-android-1550138.html	', 192, '	mediamarkt.svg'),
+('samsung', 20, '	https://www.samsung.com/es/smartphones/galaxy-s23/buy/', 899, '	samsung.svg'),
+('samsung', 18, '	https://www.samsung.com/es/smartphones/galaxy-s23-ultra/buy/', 1309, '	samsung.svg'),
+('samsung', 17, '	https://www.samsung.com/es/smartphones/galaxy-z-flip4/buy/', 1059, '	samsung.svg'),
+('samsung', 19, '	https://www.samsung.com/es/smartphones/galaxy-z-flip4/buy/', 979, '	samsung.svg'),
+('samsung', 15, '	https://www.samsung.com/es/smartphones/galaxy-z-fold4/buy/?modelCode=SM-F936BZACEUB', 1919, '	samsung.svg'),
+('mi', 34, '	https://www.mi.com/es/product/xiaomi-12/?skupanel=1	', 899, '	xiaomi.svg'),
+('mi', 35, '	https://www.mi.com/es/product/xiaomi-12-pro/?skupanel=1&gid=4221000013', 999, '	xiaomi.svg'),
+('mi', 33, '	https://www.mi.com/es/product/xiaomi-13/?skupanel=1&gid=4223701044', 999, '	xiaomi.svg'),
+('mi', 31, '	https://www.mi.com/es/product/xiaomi-13-pro/?skupanel=1	', 1399, '	xiaomi.svg'),
+('mi', 45, '	https://www.mi.com/es/mi-10t/?skupanel=1', 499, '	xiaomi.svg'),
+('mi', 38, '	https://www.mi.com/es/mi-10t-lite/?skupanel=1&gid=4204000051', 279, 'xiaomi.svg'),
+('mi', 39, '	https://www.mi.com/es/mi-10t-lite/?skupanel=1&gid=4204000052', 329, '	xiaomi.svg'),
+('mi', 37, '	https://www.mi.com/es/mi-10t-pro/?skupanel=1', 649, 'xiaomi.svg'),
+('mi', 29, '	https://www.mi.com/es/mi-9-se/?skupanel=1&gid=4191500012', 349, 'xiaomi.svg'),
+('mi', 30, '	https://www.mi.com/es/mi-9-se/?skupanel=1&gid=4191500014', 399, 'xiaomi.svg'),
+('mi', 28, '	https://www.mi.com/es/product/redmi-10-2022/?skupanel=1', 149, 'xiaomi.svg'),
+('mi', 42, '	https://www.mi.com/es/product/redmi-note-10-5g/?skupanel=1&gid=4211700017', 249, '	xiaomi.svg'),
+('mi', 43, '	https://www.mi.com/es/product/redmi-note-10-5g/?skupanel=1&gid=4211700018', 269, 'xiaomi.svg'),
+('mi', 26, '	https://www.mi.com/es/product/redmi-note-11-pro-plus-5g/?skupanel=1&gid=4221200076', 329, '	xiaomi.svg'),
+('mi', 27, '	https://www.mi.com/es/product/redmi-note-11-pro-plus-5g/?skupanel=1&gid=4221200075', 399, '	xiaomi.svg'),
+('mi', 36, '	https://www.mi.com/es/product/redmi-note-11s/?skupanel=1&gid=4220400035', 249, 'xiaomi.svg'),
+('mi', 40, '	https://www.mi.com/es/product/redmi-note-11s-5g/?skupanel=1&gid=4222100018', 299, '	xiaomi.svg'),
+('mi', 46, '	https://www.mi.com/es/product/redmi-note-11s-5g/?skupanel=1&gid=4223701169', 189, '	xiaomi.svg'),
+('mi', 25, '	https://www.mi.com/es/product/redmi-note-12-pro-5g/?skupanel=1&gid=4223701339', 379, '	xiaomi.svg'),
+('mi', 41, '	https://www.mi.com/es/product/redmi-note-9t/?skupanel=1&gid=4210100014', 269, '	xiaomi.svg'),
+('mi', 44, '	https://www.mi.com/es/product/redmi-note-9t/?skupanel=1&gid=4210100013', 249, '	xiaomi.svg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_contactos`
+--
+
+CREATE TABLE `user_contactos` (
+  `user_id` int NOT NULL,
+  `contacto_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_contactos`
+--
+
+INSERT INTO `user_contactos` (`user_id`, `contacto_id`) VALUES
+(70, 147),
+(70, 160),
+(70, 149),
+(160, 147),
+(70, 161);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_disp_dislike`
+--
+
+CREATE TABLE `user_disp_dislike` (
+  `user_id` int NOT NULL,
+  `disp_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_disp_dislike`
+--
+
+INSERT INTO `user_disp_dislike` (`user_id`, `disp_id`) VALUES
+(70, 11);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_disp_fav`
+--
+
+CREATE TABLE `user_disp_fav` (
+  `user_id` int NOT NULL,
+  `disp_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_disp_fav`
+--
+
+INSERT INTO `user_disp_fav` (`user_id`, `disp_id`) VALUES
+(70, 3),
+(70, 4),
+(149, 11),
+(70, 6),
+(70, 13),
+(70, 23),
+(70, 16),
+(70, 11),
+(70, 5),
+(160, 3),
+(160, 4),
+(160, 16),
+(160, 13),
+(160, 11),
+(160, 10),
+(70, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_disp_use`
+--
+
+CREATE TABLE `user_disp_use` (
+  `user_id` int NOT NULL,
+  `disp_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_disp_use`
+--
+
+INSERT INTO `user_disp_use` (`user_id`, `disp_id`) VALUES
+(70, 10),
+(160, 6),
+(70, 6),
+(70, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_intereses`
+--
+
+CREATE TABLE `user_intereses` (
+  `user_id` int NOT NULL,
+  `interes_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_intereses`
+--
+
+INSERT INTO `user_intereses` (`user_id`, `interes_id`) VALUES
+(147, 1),
+(147, 3),
+(147, 6),
+(148, 1),
+(148, 5),
+(149, 6),
+(149, 7),
+(160, 1),
+(160, 2),
+(160, 3),
+(161, 1),
+(161, 5),
+(161, 6),
+(161, 7),
+(162, 1),
+(162, 5),
+(164, 2),
+(166, 1),
+(166, 2),
+(166, 3),
+(167, 1),
+(167, 2),
+(167, 3),
+(170, 1),
+(170, 2),
+(170, 3),
+(70, 1),
+(70, 2),
+(70, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_marcas`
+--
+
+CREATE TABLE `user_marcas` (
+  `user_id` int NOT NULL,
+  `marca_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_marcas`
+--
+
+INSERT INTO `user_marcas` (`user_id`, `marca_id`) VALUES
+(147, 2),
+(147, 3),
+(147, 5),
+(147, 6),
+(148, 1),
+(149, 3),
+(149, 7),
+(160, 1),
+(160, 5),
+(161, 1),
+(161, 2),
+(161, 3),
+(161, 4),
+(161, 5),
+(162, 1),
+(162, 6),
+(164, 4),
+(166, 1),
+(166, 5),
+(167, 1),
+(167, 5),
+(170, 1),
+(170, 5),
+(70, 1),
+(70, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_recomendaciones`
+--
+
+CREATE TABLE `user_recomendaciones` (
+  `user_id` int NOT NULL,
+  `disp_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `user_recomendaciones`
+--
+
+INSERT INTO `user_recomendaciones` (`user_id`, `disp_id`) VALUES
+(147, 12),
+(147, 11),
+(147, 6),
+(147, 13),
+(147, 23),
+(147, 16),
+(160, 23),
+(161, 11),
+(147, 5),
+(160, 5),
+(161, 5),
+(147, 3),
+(161, 3),
+(147, 4),
+(161, 4),
+(161, 16),
+(161, 13),
+(70, 10),
+(147, 10),
+(161, 10),
+(166, 11),
+(167, 11),
+(170, 11),
+(70, 12),
+(160, 12),
+(161, 12),
+(166, 12),
+(167, 12),
+(170, 12),
+(147, 9),
+(160, 9),
+(161, 9),
+(166, 9),
+(167, 9),
+(170, 9),
+(160, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `user_id` int NOT NULL,
+  `nombreUsuario` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `contrasena` varchar(60) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  `fecha` date NOT NULL,
+  `ocupacion` int DEFAULT NULL,
+  `admin` varchar(1) NOT NULL DEFAULT '0',
+  `avatar` varchar(300) NOT NULL DEFAULT 'no_avatar.png'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`user_id`, `nombreUsuario`, `email`, `contrasena`, `nombre`, `apellidos`, `fecha`, `ocupacion`, `admin`, `avatar`) VALUES
+(13, 'admin2', 'admin@gmail.com', '$2y$10$BMM39TF3AhJ83DOgxYH6v.A0WnKkmOrbHz1Gh7t.YZX3usHM91bEq', 'admin', 'admin', '2022-10-03', 0, '1', 'no_avatar.png'),
+(70, 'veronica', 'veronica4@gmail.com', '$2y$10$.LmomhOfhFJ794JxONgIfOCSV7NV96kNygEMt1VmXhfkvRlORMjz.', 'Verónica', 'Terán Molina', '1992-08-15', 16, '0', '644bb96d24ac0.png'),
+(147, 'davidloko15', 'davidloko15@hotmail.com', '$2y$10$3fqdo7FdiL8xRPGa3/vGYOjuex479zOnPL8NiuZ93Vo7sNuvVPxva', 'David', 'González Rodríguez', '1974-03-28', 11, '0', 'no_avatar.png'),
+(148, 'lpalau', 'nesaliin@gmail.com', '$2y$10$0.V/Rwzp2bz7EA642blaaeqzezzhFuRmkzVu4fuHfuq8j3g5Y2oz2', 'Lidia', 'Palau Blancas', '1991-12-30', 10, '0', 'no_avatar.png'),
+(149, 'pedro', 'petero55@hotmail.com', '$2y$10$kO20Jwr4mI3nMWgxxQPMXeNuFBKSYpbLIrCdkUivlNiruEr3Dd4UW', 'pedro', ' teran rodriguez', '1955-12-26', 15, '0', 'no_avatar.png'),
+(160, 'marta', 'marta@gmail.com', '$2y$10$FkkkhyT2kkmjGIjSiGyloOmTwpnGZTBTh7LjR83I5pdXIHRujn1AO', 'marta', 'perez', '1992-08-05', 8, '0', 'no_avatar.png'),
+(161, 'Carolinalg5', 'karolina.5@hotmail.com', '$2y$10$j0mrm33Ewii2DKmOynAHY.dZ6.7n4MemfCFVgKOhmoyKA4AUoDvWy', 'Carolina ', 'López García ', '1987-11-05', 15, '0', 'no_avatar.png'),
+(162, 'javier', 'javier@gmail.com', '$2y$10$xrnPJ.2NQawZcpRyTIG2bu6XzpsafY6TGCD2FNMaHOpUlaMlTMMf.', '', 'calvo', '2000-03-06', 0, '0', 'no_avatar.png'),
+(164, 'pepe', 'pepe@gmail.com', '$2y$10$Yy1kbzk4BDxbTmCXZb0Mo.J4/eR41xcbr9TaqikGpUzk4zCmgstty', 'pepe', 'calvo', '2020-03-31', 8, '0', 'no_avatar.png'),
+(166, 'wgefs', 'ergffcewc@gmail.com', '$2y$10$6Ti0T26eJ5/BNj0WBLm0/ej5FBIJCAzn98IyTT9j4VWsnkUFmb6MO', '', 'fwesv', '1992-08-03', 8, '0', 'no_avatar.png'),
+(167, 'prueba', 'prueba@gmail.com', '$2y$10$LDLOV6oDnYOWwdMOZPvmi..moo6/C2UJciuPKVwVbRPIedcjb9puO', 'prueba', 'prueba', '1992-08-09', 8, '0', 'no_avatar.png'),
+(170, 'egrfc', 'efs@gmail.com', '$2y$10$D3sXtoqKzyUPcAUyUTpHxuo9HAJhuRznOzl.YhoTgrk9k5pqB4aeW', '', 'wefsdc', '1992-08-17', 8, '0', 'no_avatar.png');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `caracteristicas_camara`
+--
+ALTER TABLE `caracteristicas_camara`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `chatbot`
+--
+ALTER TABLE `chatbot`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalle_sensores`
+--
+ALTER TABLE `detalle_sensores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `dispositivos`
+--
+ALTER TABLE `dispositivos`
+  ADD PRIMARY KEY (`disp_id`);
+
+--
+-- Indices de la tabla `disp_interes`
+--
+ALTER TABLE `disp_interes`
+  ADD KEY `disp_id` (`disp_id`) USING BTREE,
+  ADD KEY `interes_id` (`interes_id`) USING BTREE;
+
+--
+-- Indices de la tabla `galeria_disp`
+--
+ALTER TABLE `galeria_disp`
+  ADD KEY `disp_id` (`disp_id`);
+
+--
+-- Indices de la tabla `intereses`
+--
+ALTER TABLE `intereses`
+  ADD PRIMARY KEY (`interes_id`);
+
+--
+-- Indices de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`marca_id`);
+
+--
+-- Indices de la tabla `ocupaciones`
+--
+ALTER TABLE `ocupaciones`
+  ADD PRIMARY KEY (`id_ocupacion`);
+
+--
+-- Indices de la tabla `precios_por_disp`
+--
+ALTER TABLE `precios_por_disp`
+  ADD KEY `disp_id` (`disp_id`);
+
+--
+-- Indices de la tabla `user_contactos`
+--
+ALTER TABLE `user_contactos`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `contacto_id` (`contacto_id`);
+
+--
+-- Indices de la tabla `user_disp_dislike`
+--
+ALTER TABLE `user_disp_dislike`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `disp_id` (`disp_id`);
+
+--
+-- Indices de la tabla `user_disp_fav`
+--
+ALTER TABLE `user_disp_fav`
+  ADD KEY `disp_id` (`disp_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `user_disp_use`
+--
+ALTER TABLE `user_disp_use`
+  ADD KEY `disp_id` (`disp_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `user_intereses`
+--
+ALTER TABLE `user_intereses`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `interes_id` (`interes_id`);
+
+--
+-- Indices de la tabla `user_marcas`
+--
+ALTER TABLE `user_marcas`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `marca_id` (`marca_id`);
+
+--
+-- Indices de la tabla `user_recomendaciones`
+--
+ALTER TABLE `user_recomendaciones`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `disp_id` (`disp_id`),
+  ADD KEY `disp_id_2` (`disp_id`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `ocupacion` (`ocupacion`) USING BTREE;
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `caracteristicas_camara`
+--
+ALTER TABLE `caracteristicas_camara`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT de la tabla `chatbot`
+--
+ALTER TABLE `chatbot`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_sensores`
+--
+ALTER TABLE `detalle_sensores`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `dispositivos`
+--
+ALTER TABLE `dispositivos`
+  MODIFY `disp_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT de la tabla `intereses`
+--
+ALTER TABLE `intereses`
+  MODIFY `interes_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `marca_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `ocupaciones`
+--
+ALTER TABLE `ocupaciones`
+  MODIFY `id_ocupacion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `disp_interes`
+--
+ALTER TABLE `disp_interes`
+  ADD CONSTRAINT `disp_interes_ibfk_1` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `disp_interes_ibfk_2` FOREIGN KEY (`interes_id`) REFERENCES `intereses` (`interes_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `galeria_disp`
+--
+ALTER TABLE `galeria_disp`
+  ADD CONSTRAINT `galeria_disp_ibfk_1` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `precios_por_disp`
+--
+ALTER TABLE `precios_por_disp`
+  ADD CONSTRAINT `precios_por_disp_ibfk_1` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_contactos`
+--
+ALTER TABLE `user_contactos`
+  ADD CONSTRAINT `user_contactos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_contactos_ibfk_2` FOREIGN KEY (`contacto_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_disp_dislike`
+--
+ALTER TABLE `user_disp_dislike`
+  ADD CONSTRAINT `user_disp_dislike_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_disp_dislike_ibfk_2` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_disp_fav`
+--
+ALTER TABLE `user_disp_fav`
+  ADD CONSTRAINT `user_disp_fav_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_disp_fav_ibfk_2` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_disp_use`
+--
+ALTER TABLE `user_disp_use`
+  ADD CONSTRAINT `user_disp_use_ibfk_2` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_disp_use_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_intereses`
+--
+ALTER TABLE `user_intereses`
+  ADD CONSTRAINT `user_intereses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_intereses_ibfk_2` FOREIGN KEY (`interes_id`) REFERENCES `intereses` (`interes_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_marcas`
+--
+ALTER TABLE `user_marcas`
+  ADD CONSTRAINT `user_marcas_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_marcas_ibfk_2` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`marca_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_recomendaciones`
+--
+ALTER TABLE `user_recomendaciones`
+  ADD CONSTRAINT `user_recomendaciones_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_recomendaciones_ibfk_2` FOREIGN KEY (`disp_id`) REFERENCES `dispositivos` (`disp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

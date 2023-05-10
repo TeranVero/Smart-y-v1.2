@@ -22,19 +22,19 @@
 	 * @var string
 	 * @access private
 	 */
-	private $BD_NAME= 'vteran';
+	private $BD_NAME= 'Smarty';
 	/**
 	 * Nombre de usuario de la bbdd
 	 * @var string
 	 * @access private
 	 */
-	private $BD_USER= 'vteran';
+	private $BD_USER= 'root';
 	/**
 	 * Contraseña de la bbdd
 	 * @var string
 	 * @access private
 	 */
-	private $BD_PASS ='MacSolTeam7';
+	private $BD_PASS ='ist2005';
 	/**
 	 * Ruta raiz del sitio
 	 * @var string

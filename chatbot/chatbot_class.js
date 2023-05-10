@@ -15,7 +15,7 @@ class Chatbot {
 		/** 
  @param {int} cont define el numero de preguntas maxumo del cuestionario //0..15
  */
-		this.cont = 12
+		this.cont = 0
 		/** 
  @param {Array} responses define el numero de preguntas maxumo del cuestionario //0..15
  */
@@ -146,7 +146,7 @@ class Chatbot {
 					if (http.readyState == 4 && http.status == 200) {
 						var response = http.responseText;
 						if (response.length != 0) {
-							var text = "<p><span>¡Enhorabuena! Hemos encontrado estos dispositivos que pueden ser perfectos para ti! Si quieres seguir <strong>recomendaciones personalizadas</strong> y estar al dia de las últimas novedades, ¡se <strong><em>Smart-y</em></strong> y registrate <strong><a href='/registro' data-bs-toggle='tooltip' data-bs-title='Resgistraté'> AQUÍ </strong></a>!</span></p><button class='btn_result border rounded m-2 text-center'>¡Ver recomendación!</button>";
+							var text = "<p><span>¡Enhorabuena! Hemos encontrado estos dispositivos que pueden ser perfectos para ti! Si quieres seguir <strong>recomendaciones personalizadas</strong> y estar al dia de las últimas novedades, ¡se <strong><em>Smart-y</em></strong> y registrate <strong><a href='../registro' data-bs-toggle='tooltip' data-bs-title='Resgistraté'> AQUÍ </strong></a>!</span></p><button class='btn_result border rounded m-2 text-center'>¡Ver recomendación!</button>";
 							var replay = '<div class="bot-inbox inbox"><div class="icon"><img src="../assets/img/idea.png" alt="funny GIF"></div><div class="msg-header">' + text + '</div></div>';
 							$(".form_chatbot").append(replay);
 							$(".form_chatbot").scrollTop($(".form_chatbot")[0].scrollHeight); $(".dots").hide();
@@ -154,7 +154,7 @@ class Chatbot {
 							//Cuando se pulsa en el botón "Ver recomendacion" se redirige a la vista de las recomendaciones
 							$('.btn_result').click(function (e) {
 								e.preventDefault();
-								window.location.href = 'recomendacion?id=' + response;
+								window.location.href = '../recomendacion_asistente?id=' + response;
 							});
 
 
