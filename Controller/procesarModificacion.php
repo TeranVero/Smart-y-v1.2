@@ -13,7 +13,7 @@ $directorio = '../public_html/galerias/';
 
 
 if (!empty($_POST["file_json"])) {
-	//Decodificamos el string y obtenemo la imagen en base64
+	//Decodificamos el string y obtenemos la imagen en base64
 	$parts = explode(";base64,", $_POST["file_json"]);
 	$strblob = base64_decode($parts[1]);
 
@@ -34,8 +34,8 @@ if ($usuarios_controler->modificarDatos($usuario)) {
 		$_SESSION["nombre"] = $_POST['nombre'];
 		$_SESSION["apellidos"] = $_POST['apellidos'];
 		$_SESSION["fecha"] = $_POST['fecha'];
-		return header('Location: perfil/' . $usuario . '');
+		return header('Location: ../perfil/' . $usuario . '');
 	} else {
-		return header('Location: gestion/usuarios');
+		return header('Location: ../gestion/usuarios');
 	}
 }

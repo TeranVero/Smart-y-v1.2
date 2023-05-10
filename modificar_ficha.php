@@ -8,6 +8,7 @@
 include_once('header.php');
 include_once "Controller/dispositivo_controller.php";
 
+
 $dispositivo_controller = new dispositivo_controller();
 $usuarios_controller = new usuarios_model();
 $disp = $dispositivo_controller->getDisp($_GET['dispositivo']);

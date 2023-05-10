@@ -48,8 +48,8 @@ $gallery = $dispositivo_controller->getGaleria(($_GET['disp']));
 			<?php include_once('templates/galeria.php'); ?>
 		</div>
 		<div class="col-md-6 col-7 precio_icons">
-			<!-- <div class="row pe-3 pe-md-0">
-				<div class="col-md-8 ps-2 border rounded precios_disp d-flex flex-column d-none">
+			<div class="row pe-3 pe-md-0">
+				<div class="col-md-8 ps-2 border rounded precios_disp d-flex flex-column">
 					<?php $precios = $dispositivo_controller->getListadoPrecios($disp['disp_id']);
 					while ($precio = $precios->fetch_assoc()) { ?>
 						<div class="row enlace my-1">
@@ -64,7 +64,7 @@ $gallery = $dispositivo_controller->getGaleria(($_GET['disp']));
 						</div>
 					<?php } ?>
 				</div>
-			</div> -->
+			</div> 
 			<div class="row row_icon_ficha">
 				<div class="col-md-5 col-9 d-flex border rounded mt-md-2 ficha_disp_icons mt-3">
 					<?php if (isset($_SESSION['user_id']) && $user_disp_controller->isFav($_SESSION['user_id'], $disp['disp_id'])) { ?>

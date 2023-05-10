@@ -479,7 +479,6 @@ class dispositivo_controller
 	 */
 	public function buscarDisp($disp)
 	{
-
 		$array_disp = $this->disp_model->buscarDisp($disp);
 
 		 return $array_disp;

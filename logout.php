@@ -1,6 +1,6 @@
 <?php
 /**
- * Fichero php que implementa la vista index
+ * Fichero php que realiza el cierre de sesión del usuario
  * 
  * @author Verónica Terán Molina <vteran@ucm.es>
  */

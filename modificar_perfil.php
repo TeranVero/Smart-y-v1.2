@@ -14,7 +14,6 @@ $usuarios_controller = new usuarios_controller();
 $dispositivo_controller = new dispositivo_controller();
 $directorio = '../public_html/galerias/';
 
-
 if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 	$user = $usuarios_controller->getUser($_GET['usuario']);
 	$intereses = $usuarios_controller->getInteresesUser($user["user_id"]);
@@ -52,7 +51,7 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modalLabel">Crop the image</h5>
+					<h5 class="modal-title" id="modalLabel">Recorte avatar</h5>
 					<button type="button" class="col-1 btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body cropAvatarmodal">
@@ -247,10 +246,8 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 		var image = document.getElementById('uploadedAvatar');
 		var input = document.getElementById('file-input');
 		var cropBtn = document.getElementById('crop');
-
 		var $modal = $('#cropAvatarmodal');
 		var cropper;
-
 		input.addEventListener('change', function (e) {
 			var files = e.target.files;
 			var done = function (url) {
@@ -267,7 +264,6 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 				reader.readAsDataURL(file);
 			}
 		});
-
 		$modal.on('shown.bs.modal', function () {
 			cropper = new Cropper(image, {
 				viewMode: 0,
@@ -280,11 +276,9 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 			cropper.destroy();
 			cropper = null;
 		});
-
 		cropBtn.addEventListener('click', function () {
 			var canvas;
 			$modal.modal('hide');
-
 			if (cropper) {
 				canvas = cropper.getCroppedCanvas({
 					width: 160,

@@ -56,7 +56,6 @@ switch ($_POST["accion"]) {
 	 */
 	case "buscar_disp": {
 			$directorio = '../public_html/galerias/';
-			$disp = $_REQUEST["texto"];
 			$disp = $dispositivo_controller->buscarDisp($disp);
 			while ($row = $disp->fetch_assoc()) {
 				$imagen = $dispositivo_controller->getDestacada($row["disp_id"]); //Obtenemos la imagen destacada del dispositivo

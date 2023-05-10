@@ -15,7 +15,7 @@ class Chatbot {
 		/** 
  @param {int} cont define el numero de preguntas maxumo del cuestionario //0..15
  */
-		this.cont = 0
+		this.cont = 12
 		/** 
  @param {Array} responses define el numero de preguntas maxumo del cuestionario //0..15
  */
@@ -134,7 +134,7 @@ class Chatbot {
 			setTimeout(() => {
 				var resultado = JSON.stringify(this.responses);
 				var http = new XMLHttpRequest();
-				var url = "chatbot/chatbot_controller.php";
+				var url = "../chatbot/chatbot_controller.php";
 				var cont = this.cont;
 				var params = "resultado=" + resultado + "&accion=resultado";
 				//Llamada al archivo "chatbotBD" para obtener de la BBDD los ids de acuerdo al filtrado aportado por el usuario.
@@ -180,7 +180,6 @@ class Chatbot {
 
 	 */
 	response(value, id, name) {
-		console.log($(this));
 		if(name<this.cont){
 			var msg = '<div class="user-inbox inbox"><div class="msg-header"><p>' + value + '</p></div></div>';
 			this.add(msg);
@@ -191,7 +190,6 @@ class Chatbot {
 			var msg = '<div class="user-inbox inbox"><div class="msg-header"><p>' + value + '</p></div></div>';
 			this.add(msg);
 			this.setResponses(this.cont,id);
-			console.log(this.responses);
 			//Una vez almacenada, aumentamos cont para mostrar la siguiente pregunta
 			this.cont++;
 			this.question();

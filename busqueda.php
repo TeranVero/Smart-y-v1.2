@@ -26,8 +26,9 @@ $disp_array = $dispositivo_controller->buscarDisp($disp);
 
 	<div id='disp busqueda' class="row resultados px-md-5 pd-3">
 		<?php while ($disp = $disp_array->fetch_assoc()) {
+			
 			$imagen = $dispositivo_controller->getDestacada($disp["disp_id"]);
-			include('../templates/search.php');
+			include('templates/search.php');
 		}
 		?>
 	</div>
