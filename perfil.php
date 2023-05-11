@@ -35,7 +35,7 @@ if ($usuarios_controller->existeUsuario($nombreUsuario)) {
 									<?php echo $usuario['apellidos'] ?>
 								</h5>
 								<div class=''>
-									<a href='../modificar_perfil?usuario=<?php echo $_SESSION["nombreUsuario"] ?>'
+									<a href='../modificar_perfil/<?php echo $_SESSION["nombreUsuario"] ?>'
 										id='editar_perfil' class='mx-1  ' data-bs-toggle='tooltip'
 										data-bs-placement='bottom' title='Editar'><img src='../assets/img/editar.png'
 											height='20' width='20'></a>
