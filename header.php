@@ -23,7 +23,6 @@ include('init.php');
 	<script src="../chatbot/chatbot_class.js"></script>
 	<script src="../assets/bootstrap-5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/smart-y.js"></script>
-	<script src="../assets/js/hasEventListener.js"></script>
 	<link rel=" icon" href="../logo_small.png" type="image/x-icon">
 	<link rel="stylesheet" href="../node_modules/flickity/dist/flickity.min.css">
 	<script src="https://fengyuanchen.github.io/cropperjs/js/cropper.js"></script>

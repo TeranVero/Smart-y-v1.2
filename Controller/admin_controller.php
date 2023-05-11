@@ -83,16 +83,7 @@ switch ($_POST["accion"]) {
 			break;
 		}
 
-	/**
-	 * Opción que gestiona la carga de dispositivos mediante la ingesta masiva por documento .csv
-	 */	
-	case "carga_masiva_disp": {
-			if ($dispositivo_controller->altaDispositivo()) {
-				echo "1";
-			} else {
-				echo "0";
-			}
-		}
+	
 
 	/**
 	 * Opción que gestiona la carga de las imagenes de forma masiva.

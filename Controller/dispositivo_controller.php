@@ -38,7 +38,7 @@ class dispositivo_controller
 	 */
 	public function altaDispositivo()
 	{
-
+		
 		$nombre = $_POST['nombre'];
 		$marca = $_POST['marca'];
 		if (!empty($_POST['caracteristicas_cam'])) {

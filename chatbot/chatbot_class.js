@@ -279,6 +279,7 @@ $(document).ready(function () {
 			myChatbot.response(this.value, this.id,this.name);
 		});
 
+		$('.btn_reset').off('click');
 		$(".btn_reset").on("click", function () {
 			//Inicializamos a 0 todas las variables que determinan las preguntas y resultados.
 			$cont = 0;

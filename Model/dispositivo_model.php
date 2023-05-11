@@ -81,8 +81,8 @@ class dispositivo_model extends configBD
 	 * @param string $precio
 	 * @param string $colores
 	 * @param string $destacada
-	 * @param string $galeria
-	 * @param string $interes
+	 * @param array $galeria
+	 * @param array $interes
 	 * @return bool|mysqli_result
 	 */
 	public function alta_dispositivo(
@@ -173,7 +173,7 @@ class dispositivo_model extends configBD
 					$data2 = $this->BD->query($query2) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
 				}
 				//Una vez insertadas las imagenes, creamos la relacion entre el dispositivo y los intereses seleccionados	
-				if ($data2) {
+				if ($data2 && ($interes != null)) {
 					foreach ($interes as $i) {
 						$query3 = sprintf("INSERT INTO disp_interes(disp_id, interes_id) VALUES ('%u','%s')", $this->BD->real_escape_string($id_ultimo_insert), $this->BD->real_escape_string($i));
 						$data3 = $this->BD->query($query3) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
