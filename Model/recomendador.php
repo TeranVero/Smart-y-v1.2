@@ -121,7 +121,7 @@ class Recomendador
         //A continuacion se calcula la cercania de los usuarios de acuerdo a los pesos que tiene cada atributo
         $suma_total = (0.1 * $total_edad) + (0.5 * $total_interes) + (0.35 * $total_marcas) + (0.05 * $total_ocupacion);
 
-        if ($suma_total >= 75) {
+        if ($suma_total >= 80) {
             $recomendar = true;
         }
 
