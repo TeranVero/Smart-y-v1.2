@@ -9,11 +9,9 @@ require '../vendor/autoload.php';
 use Orhanerday\OpenAi\OpenAi;
 
 
-$text = $_GET['text'];//obtenemos la especificacion del dispositivos del que queremos obtener la información
-  
+$text = $_GET['text'];//obtenemos la especificacion del dispositivos del que queremos obtener la información 
 $open_ai_key =getenv('OPENAI_API_KEY');
 $open_ai = new OpenAi($open_ai_key);
-
   $opts=[
     'model'=>'text-curie-001',
     'prompt'=>'The following is a conversation with an AI assistant. The assistant is helpful, creative, smart,
@@ -34,7 +32,7 @@ $open_ai = new OpenAi($open_ai_key);
     'presence_penalty'=>0.6,
     'stop'=>[" Human:", " AI:"]
   ];
-  $complete=$open_ai->completion($opts);
-$arr = json_decode($complete, true);
+  $respuesta=$open_ai->completion($opts);
+$arr = json_decode($respuesta, true);
 echo $arr["choices"][0]["text"]; 
 ?>
