@@ -51,7 +51,7 @@ include('init.php');
 								<a class="nav-link index" aria-current="page" href="/index">Home</a>
 							</li>
 							<li class="nav-item nav-item-contacto">
-								<a class="nav-link saber_mas" href="saber_mas">Sobre "Smart-y"</a>
+								<a class="nav-link saber_mas" href="/saber_mas">Sobre "Smart-y"</a>
 							</li>
 							<li class="nav-item nav-item-buscador">
 								<form id="form_buscador_dispositivo" method="GET" action="/busqueda">
