@@ -282,8 +282,8 @@ class dispositivo_model extends configBD
 	 * @param string $precio
 	 * @param string $colores
 	 * @param string $destacada
-	 * @param string $galeria
-	 * @param string $interes
+	 * @param array $galeria
+	 * @param array $interes
 	 * @return bool|mysqli_result
 	 */
 	public function modificarFicha(
@@ -361,18 +361,18 @@ class dispositivo_model extends configBD
 
 			/*Si la modificacion de los datos y la imagen ha ido correctamente, eliminamos la relacion entre el dispositivo
 			y los antiguos intereses y añadimos los nuevos datos*/
-			if ($data) {
-				$query = sprintf("DELETE FROM disp_interes WHERE disp_id='$disp_id'");
-				$data = $this->BD->query($query) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
+			if (($interes != null)) {
+				$query3 = sprintf("DELETE FROM disp_interes WHERE disp_id='$disp_id'");
+				$data3 = $this->BD->query($query3) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
 
 				foreach ($interes as $i) {
-					$query3 = sprintf("INSERT INTO disp_interes(disp_id, interes_id) VALUES ('%u','%s')", $this->BD->real_escape_string($disp_id), $this->BD->real_escape_string($i));
-					$data3 = $this->BD->query($query3) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
+					$query4 = sprintf("INSERT INTO disp_interes(disp_id, interes_id) VALUES ('%u','%s')", $this->BD->real_escape_string($disp_id), $this->BD->real_escape_string($i));
+					$data4 = $this->BD->query($query4) or die($this->BD->error . " en la línea " . (__LINE__ - 1));
 
 				}
-				return $data3;
+				return $data4;
 			} else {
-				return false;
+				return true;
 			}
 
 		} else {

@@ -526,7 +526,7 @@ $intereses_disp = $dispositivo_controller->getDispInteres($disp["disp_id"]);
 
 	$(".confirmar").click(function () {
 		$.ajax({
-			url: '../procesarModificacionFicha.php?dispositivo=<?php echo $_GET['dispositivo']; ?>',
+			url: '../Controller/procesarModificacionFicha.php?dispositivo=<?php echo $_GET['dispositivo']; ?>',
 			method: "POST",
 			data: new FormData($("#form_mod_ficha")[0]),
 			processData: false,
@@ -542,6 +542,8 @@ $intereses_disp = $dispositivo_controller->getDispInteres($disp["disp_id"]);
 					})
 					const toast = new bootstrap.Toast($('#edit_ok_toast'));
 					toast.show();
+				}else{
+					alert("No se ha podido completar la modificación");
 				}
 			},
 			error: function () {
