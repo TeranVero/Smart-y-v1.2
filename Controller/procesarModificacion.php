@@ -34,8 +34,12 @@ if ($usuarios_controler->modificarDatos($usuario)) {
 		$_SESSION["nombre"] = $_POST['nombre'];
 		$_SESSION["apellidos"] = $_POST['apellidos'];
 		$_SESSION["fecha"] = $_POST['fecha'];
-		return header('Location: ../perfil/' . $usuario . '');
+		// return header('Location: ../perfil/' . $usuario . '');
+		echo 1;
 	} else {
-		return header('Location: ../gestion/usuarios');
+		// return header('Location: ../gestion/usuarios');
+		echo 2;
 	}
+}else{
+	echo 0;
 }

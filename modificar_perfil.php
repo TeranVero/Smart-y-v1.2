@@ -75,7 +75,7 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 		</div>
 		<div class="row  mb-5 justify-content-center align-items-center">
 			<form class="row g-3 mb-5" id="form_mod"
-				action="../Controller/procesarModificacion.php?usuario=<?php echo $_GET['usuario'] ?>" method="POST"
+				action="javascript:void(0)"  method="POST"
 				enctype="multipart/form-data">
 				<div class=" col-12">
 					<textarea class="d-none" name="file_json" id="file_json"></textarea>
@@ -217,7 +217,24 @@ if ($usuarios_controller->existeUsuario($_GET['usuario'])) {
 	}
 
 	$(".confirmar").click(function () {
-		$("#form_mod").submit();
+		// $("#form_mod").submit();
+		$.ajax({
+						url: '../Controller/procesarModificacion.php?usuario=<?php echo $_GET['usuario'] ?>',
+						method: "POST",
+						data: new FormData($("#form_mod")[0]),
+						processData: false,
+						contentType: false,
+						success: function (data) {
+							if(data==1){
+								location.reload();
+							}else if(data==2){
+								location.href='../gestion/usuarios';
+							}
+					},
+						error: function (data) {
+							alert("Error al modificar el usuario")
+						}
+					});
 		$('.loader').removeClass("d-none");
 	});
 
