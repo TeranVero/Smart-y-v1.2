@@ -63,17 +63,14 @@ class Recomendador
         $info_usuario1 = $this->usuarios_model->getUser_id($user_1);
         $info_usuario2 = $this->usuarios_model->getUser_id($user_2);
         $recomendar = false;
-
         /*Se comprueba si la diferencia de edad entre user_1 y user_2 es de un rango [-5,+5]*/
         $date_user_1 = new DateTime($info_usuario1["fecha"]);
         $date_user_2 = new DateTime($info_usuario2["fecha"]);
-
         $rango_edad = $date_user_1->diff($date_user_2);
         if ($rango_edad->y == 5) { //Si la diferencia esta dentro del rango, se contabiliza el 100%
             $total_edad = 100;
         } else
             $total_edad = 0;
-
         /*Se comprueba el porcentaje de intereses similares entre user_1 y user_2*/
         $intereses_user_1 = $this->usuarios_model->getInteresesUser($user_1);
         $intereses_user_2 = $this->usuarios_model->getInteresesUser($user_2);
@@ -91,7 +88,6 @@ class Recomendador
         } else {
             $total_interes = 0;
         }
-
         /*Se comprueba el porcentaje de marcas similares entre user_1 y user_2*/
         $marcas_user_1 = $this->usuarios_model->getMarcasUser($user_1);
         $marcas_user_2 = $this->usuarios_model->getMarcasUser($user_2);
@@ -108,7 +104,6 @@ class Recomendador
         } else {
             $total_marcas = 0;
         }
-
         /*Se comprueba la ocupacion de user_1 y user_2*/
         $ocp_user_1 = $info_usuario1["ocupacion"];
         $ocp_user_2 = $info_usuario2["ocupacion"];
@@ -117,14 +112,12 @@ class Recomendador
         } else {
             $total_ocupacion = 0;
         }
-
         //A continuacion se calcula la cercania de los usuarios de acuerdo a los pesos que tiene cada atributo
         $suma_total = (0.1 * $total_edad) + (0.5 * $total_interes) + (0.35 * $total_marcas) + (0.05 * $total_ocupacion);
 
         if ($suma_total >= 80) {
             $recomendar = true;
         }
-
         return $recomendar;
     }
 
