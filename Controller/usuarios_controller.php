@@ -47,7 +47,7 @@ class usuarios_controller
 		$intereses = $_POST['interes'];
 		$marcas = $_POST["marcas"];
 
-		$obj_user=new Usuario($name,$apellidos,$email,$fecha,$nombreUsuario,$pass,$ocupacion,$intereses,$marcas);
+		$obj_user=new Usuario($nombre,$apellidos,$email,$fecha,$nombreUsuario,$pass,$ocupacion,$intereses,$marcas);
 		$data = $this->usuarios_model->altaUsuario($obj_user);
 
 		return $data;

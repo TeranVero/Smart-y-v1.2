@@ -86,8 +86,7 @@ $usuarios_controller = new usuarios_controller();
 					<select class="form-select" aria-label="" name="ocupacion">
 						<?php $list_ocp = $usuarios_controller->getListadoOcupaciones();
 						while ($ocp = $list_ocp->fetch_assoc()) { ?>
-						
-							<option value="<?php echo $ocp["id_ocupacion"] ?>"><?php echo $ocp["descripcion"] ?></option>
+								<option value="<?php echo $ocp["id_ocupacion"] ?>"><?php echo $ocp["descripcion"] ?></option>
 
 						<?php } ?>
 					</select>
