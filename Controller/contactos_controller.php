@@ -105,10 +105,10 @@ switch ($_POST["accion"]) {
                     <div class="col-md-9">
                         <div class="card-body">
                             <h5 class="card-title">' . $contacto["nombreUsuario"] . ' </h5>
-                            <h6 class="card-text">' . $contacto["nombre"] . $contacto["apellidos"] . '</h6>
+                            <h6 class="card-text">' . $contacto["nombre"] .' '. $contacto["apellidos"] . '</h6>
                             <p class="card-text"><small class="text-muted">' . $contacto["email"] . ' </small></p>
                             <button type="button" class="eliminar-contacto"
-                                id="' . $contacto["contacto_id"] . '">Eliminar</button>
+                                id="' . $contacto["contacto_id"] . '" onclick="eliminar_contacto('.$contacto["contacto_id"].');">Eliminar</button>
                         </div>
                     </div>
                 </div>

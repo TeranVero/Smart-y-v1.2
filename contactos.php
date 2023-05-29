@@ -83,7 +83,7 @@ $user_contactos = $usuarios_controller->obtenerContactos($user["user_id"]);
                                         <?php echo $contacto["email"] ?>
                                     </small></p>
                                 <button type="button" class="eliminar-contacto"
-                                    id="<?php echo $contacto["contacto_id"] ?>">Eliminar</button>
+                                    id="<?php echo $contacto["contacto_id"] ?>" onclick="eliminar_contacto(<?php echo $contacto['contacto_id'] ?>);">Eliminar</button>
 
                             </div>
                         </div>
@@ -103,6 +103,7 @@ $user_contactos = $usuarios_controller->obtenerContactos($user["user_id"]);
         $('input[name="listGroupRadioGrid"]').click(function () {
             contacto_id = this.id;
         })
+
     });
 
     $(".agregar-contactos").click(function () {
@@ -179,8 +180,9 @@ $user_contactos = $usuarios_controller->obtenerContactos($user["user_id"]);
 
  
 
-    $(".eliminar-contacto").click(function () {
-        $contacto_id = this.id;
+   function eliminar_contacto($id){
+        $contacto_id = $id;
+        $(".eliminar-contacto").addClass('disabled',true);
         $.ajax({
             type: "POST",
             url: "../Controller/contactos_controller.php",
@@ -191,7 +193,7 @@ $user_contactos = $usuarios_controller->obtenerContactos($user["user_id"]);
                 accion: "eliminar_contacto"
             },
         }).done(function (respuesta) {
-            location.reload();
+            buscar_contacto();
         });
-    });
+}
 </script>
